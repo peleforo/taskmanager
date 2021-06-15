@@ -52,7 +52,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
 
 				<h1>FTTH</h1>                            
-			  <ul class="nav nav-tabs flex-column">
+			 <ul class="nav nav-tabs flex-column">
 				 <li class="nav-item">
 				 	<a class="nav-link" href="interface utilisateur OBOX.html" style="color: black;">OBOX</a>
 				 </li>
@@ -95,97 +95,47 @@
 		
 		<div class="col-xs-12 col-sm-9 col-md-11 col-lg-9"  >
 			<section class="container" >
-				<div>
-					
-					<h1 style="text-align: center; font-size: 50px;">NOUVEAU DOSSIER
-					</h1><br/>
+				<div><h1 style="text-align: center; font-size: 50px;">OFIBRE <span title="Ajoutez un nouveau dossier"><a href="#"><img src="bouton ajout.png"></a></span></h1><br/></div>
 
-				</div>
-
-					<div class="row" style="padding-left: 180px;"> 
-						<table>
-							
-							<tr>
-								<td>
-									<label style="font-size: 30px;" for="iddossier">id du dossier</label>
-								</td>
-								<td>
-									<input type="text" name="iddossier" id="iddossier" />
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label style="font-size: 30px;" for="nomclient">nom du client</label>
-								</td>
-								<td>
-									<input type="text" name="nomclient" id="nomclient" />
-								</td>
-
-							</tr>
-							
-							<tr>
-								<td>
-									<label style="font-size: 30px;" for="numclient">numero du client</label>
-								</td>
-								<td>
-									<input type="text" name="numclient" id="numclient" />
-								</td>
-								
-							</tr>
-							<tr>
-								<td>
-									<label style="font-size: 30px;" for="typemaison">type de maison</label>
-								</td>
-								<td>
-									<input type="text" name="ypemaison" id="typemaison" />
-								</td>
-								
-							</tr>
-							<tr>
-								<td>
-									<label style="font-size: 30px;" for="typemaison">Villes ou district</label>
-								</td>
-								<td>
-									<input type="text" name="ypemaison" id="typemaison" />
-								</td>
-								
-							</tr>
-							<tr>
-								<td>
-									<label style="font-size: 30px;" for="typemaison">Commune</label>
-								</td>
-								<td>
-									<input type="text" name="ypemaison" id="typemaison" />
-								</td>
-								
-							</tr>
-							<tr>
-								<td>
-									<label style="font-size: 30px;" for="typemaison">Zone</label>
-								</td>
-								<td>
-									<input type="text" name="ypemaison" id="typemaison" />
-								</td>
-								
-							</tr>
-						</table>
-
-						<!--SECTION DE DESCRIPTIF-->
-						<div style="margin-top: 10px;" class="col-xs-12 col-sm-9 col-md-11 col-lg-9">
-							<h1>DESCRIPTIF</h1>
-								<textarea id="w3review" name="w3review" style= "max-width:100%;" cols="150"></textarea>
-								<input type="file" name="Ajoutez un fichier">						
-								</div>
+					<div class="row"> 
+						<div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<h2 style="text-align: center;">Validé</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 						</div>
-						<div style="text-align: center ;margin-top: 30px;">
-							<button type="submit" class="btn btn-default">Enregistrer</button>		
+						<div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<h2 style="text-align: center;">En cours</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 						</div>
+						<div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+							<h2 style="text-align: center;">Reporté</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+
+					</div>
 			</section>	
 		</div>
 
 	<!-- SECTION DE VISUALISATION DU CONTENU DU DOSSIER-->
 		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2"  >
-			
+
+			<!-- SECTION reference du dossier-->
+				<h1>Id PROJET-NOM CLIENT-LIEU DE RESIDANECE-TYPE DE MAISON/NUMERO DE TELEPHONE</h1>
+
 			<!-- SECTION DE VISUALISATION Des etapes-->
 				<section class="container" >
 					<div><h1 style="text-align: center;">ETAPE</h1><br/></div>
@@ -208,17 +158,25 @@
 				</section>	
 			<!-- SECTION DE planificatio-->
 				<h1>PLANIFICATION</h1>
+				<form>
 					<div>
 						<input type="text" name="Echeance" placeholder="Echeance"  onfocus="(this.type='date')">
 					</div>
 					<div>
-						<input type="text" name="Rappel" placeholder="Reporter" onfocus="(this.type='date')" />
+						<input type="text" name="Rappel" placeholder="Rappel" onfocus="(this.type='date')" />
 					</div>
 					<div>
 						<input type="text" name="Affecté à" placeholder="Affecté à"  />
 					</div>
+				</form>
+			<!--SECTION DE DESCRIPTIF-->
+				<h1>DESCRIPTIF</h1>
+					<textarea id="w3review" name="w3review" rows="10" cols="22">
+					Descriptif
+					</textarea>
+					<input type="file" name="Ajoutez un fichier">
 		</div>
-	
+			
 
 
 </form>
