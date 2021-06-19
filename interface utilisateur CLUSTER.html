@@ -1,74 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>onglets</title>
 	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-	<style>
-
-	.classe1 { text-decoration: none; color: #000000; }
-	.classe2 { text-decoration: line-through; color: #888888; }
-	</style>
-
-	<script language="javascript">
-
-		function coche(){
-		var obj = document.getElementById('texte1');
-			if (obj) {
-				if (document.form1.case1.checked) {
-				obj.className = 'classe2';
-				} 
-				else {
-				obj.className = 'classe1';
-				}
-			}
-			var obj = document.getElementById('texte2');
-			if (obj) {
-				if (document.form1.case2.checked) {
-				obj.className = 'classe2';
-				} 
-				else {
-				obj.className = 'classe1';
-				}
-			}
-			var obj = document.getElementById('texte3');
-			if (obj) {
-				if (document.form1.case3.checked) {
-				obj.className = 'classe2';
-				} 
-				else {
-				obj.className = 'classe1';
-				}
-			}
-		}
-
-	</script>
+	<link rel="stylesheet" type="text/css" href="style.css">	
 </head>
-<body class="container" style="background-image:url('logo.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-size: cover;">
+<body class="container">
+	<div class="row">
+		<!--Menu de navigation-->
+			<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
 
-<form name="form1" class="row">
-
-	<!-- MENU DE NAVIGATION-->
-		<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
-
-				<h1>FTTH</h1>                            
-			 <ul class="nav nav-tabs flex-column">
-				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur OBOX.html" style="color: black;">OBOX</a>
-				 </li>
-				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur OFIBRE.html" style="color: black;">OFIBRE</a>
-				 </li>
-				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur CI.html" style="color: black;">CI</a>
-				 </li>
-				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur CLUSTER.html" style="color: black;">CLUSTER</a>
-				 </li>
-			</ul>
-		  
-		  
-		  <!-- CSS DU FORMULAIRE-->
+					<h1>FTTH</h1>                            
+				  <ul class="nav nav-tabs flex-column">
+					 <li class="nav-item">
+					 	<a class="nav-link" href="interface utilisateur OBOX.html" style="color: black;">OBOX</a>
+					 </li>
+					 <li class="nav-item">
+					 	<a class="nav-link" href="interface utilisateur OFIBRE.html" style="color: black;">OFIBRE</a>
+					 </li>
+					 <li class="nav-item">
+					 	<a class="nav-link" href="interface utilisateur CI.html" style="color: black;">CI</a>
+					 </li>
+					 <li class="nav-item">
+					 	<a class="nav-link" href="interface utilisateur CLUSTER.html" style="color: black;">CLUSTER</a>
+					 </li>
+				</ul>
+			</div>
+			<!-- CSS DU FORMULAIRE-->
 			  <style type="text/css">
 
 			  	 h1{
@@ -87,100 +47,51 @@
 			  		
 			  	}
 			  </style> 
+		<!-- visualisation des dossiers selon leur etat-->
+			<div class="col-xs-12 col-sm-11 col-md-11 col-lg-11"  >
+				<h1 style="text-align: center; font-size: 50px;margin-bottom: 50px;">CLUSTER <span title="Ajoutez un nouveau dossier"><a href="nouveaudossier.html"><img src="bouton ajout.png"></a></span></h1>
+				<div class="containers">
 
+				    <div class="container-onglets">
+				        <div class="onglets active" data-anim="1">En cours</div>
+				        <div class="onglets" data-anim="2">En attente</div>
+				        <div class="onglets" data-anim="3">Reporté</div>
+				        <div class="onglets" data-anim="4">validé</div>
+				        <div class="onglets" data-anim="5">Perdu</div>
+				    </div>
 
-		</div>	
+				    <div class="contenu activeContenu" data-anim="1">
+				        <h3>Lorem ipsum dolor sit amet. 1</h3>
+				        <hr>
+				        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur perspiciatis alias quod, dolores eum illum doloremque assumenda odio architecto, dolorum vitae nobis, quo deleniti ipsum.</p>
+				    </div>
 
-	<!-- SECTION DE VISUALISATION DU CONTENU DU PROJET-->
-		
-		<div class="col-xs-12 col-sm-9 col-md-11 col-lg-9"  >
-			<section class="container" >
-				<div><h1 style="text-align: center; font-size: 50px;">CLUSTER <span title="Ajoutez un nouveau dossier"><a href="#"><img src="bouton ajout.png"></a></span></h1><br/></div>
+				    <div class="contenu" data-anim="2">
+				        <h3>Lorem ipsum dolor sit amet. 2</h3>
+				        <hr>
+				        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur perspiciatis alias quod, dolores eum illum doloremque assumenda odio architecto, dolorum vitae nobis, quo deleniti ipsum.</p>
+				    </div>
 
-					<div class="row"> 
-						<div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<h2 style="text-align: center;">Validé</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>
-						<div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<h2 style="text-align: center;">En cours</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>
-						<div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-							<h2 style="text-align: center;">Reporté</h2>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-						</div>
+				    <div class="contenu" data-anim="3">
+				        <h3>Lorem ipsum dolor sit amet. 3</h3>
+				        <hr>
+				        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur perspiciatis alias quod, dolores eum illum doloremque assumenda odio architecto, dolorum vitae nobis, quo deleniti ipsum.</p>
+				    </div>
+				    <div class="contenu" data-anim="4">
+				        <h3>Lorem ipsum dolor sit amet. 4</h3>
+				        <hr>
+				        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur perspiciatis alias quod, dolores eum illum doloremque assumenda odio architecto, dolorum vitae nobis, quo deleniti ipsum.</p>
+				    </div>
+				    <div class="contenu" data-anim="5">
+				        <h3>Lorem ipsum dolor sit amet. 5</h3>
+				        <hr>
+				        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur perspiciatis alias quod, dolores eum illum doloremque assumenda odio architecto, dolorum vitae nobis, quo deleniti ipsum.</p>
+				    </div>
 
-					</div>
-			</section>	
-		</div>
+			    </div>
+			</div>
+	</div>
 
-	<!-- SECTION DE VISUALISATION DU CONTENU DU DOSSIER-->
-		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2"  >
-
-			<!-- SECTION reference du dossier-->
-				<h1>Id PROJET-NOM CLIENT-LIEU DE RESIDANECE-TYPE DE MAISON/NUMERO DE TELEPHONE</h1>
-
-			<!-- SECTION DE VISUALISATION Des etapes-->
-				<section class="container" >
-					<div><h1 style="text-align: center;">ETAPE</h1><br/></div>
-
-					<!--BOUTON DES ETAPES-->
-						
-							<div>
-								<input type="checkbox" name="case1" onclick="javascript:coche();" />
-								<label id="texte1" class="classe1 form-check-label" for="flexCheckDefault">ETAPE </label>
-							</div>
-							<div>
-								<input type="checkbox" name="case2" onclick="javascript:coche();" value="" id="flexCheckDefault" />
-								<label id="texte2" class="classe1 form-check-label" for="flexCheckDefault">ETAPE </label>
-							</div>
-							<div>
-								<input type="checkbox" name="case3" onclick="javascript:coche();"id="flexCheckDefault"/>
-								<label id="texte3" class="classe1 form-check-label" for="flexCheckDefault">ETAPE </label>
-							</div>
-
-				</section>	
-			<!-- SECTION DE planificatio-->
-				<h1>PLANIFICATION</h1>
-				<form>
-					<div>
-						<input type="text" name="Echeance" placeholder="Echeance"  onfocus="(this.type='date')">
-					</div>
-					<div>
-						<input type="text" name="Rappel" placeholder="Rappel" onfocus="(this.type='date')" />
-					</div>
-					<div>
-						<input type="text" name="Affecté à" placeholder="Affecté à"  />
-					</div>
-				</form>
-			<!--SECTION DE DESCRIPTIF-->
-				<h1>DESCRIPTIF</h1>
-					<textarea id="w3review" name="w3review" rows="10" cols="22">
-					Descriptif
-					</textarea>
-					<input type="file" name="Ajoutez un fichier">
-		</div>
-			
-
-
-</form>
-	
-
+    <script type="text/javascript" src="app.js"></script>
 </body>
 </html>

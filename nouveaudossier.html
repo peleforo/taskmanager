@@ -9,44 +9,10 @@
 	.classe1 { text-decoration: none; color: #000000; }
 	.classe2 { text-decoration: line-through; color: #888888; }
 	</style>
-
-	<script language="javascript">
-
-		function coche(){
-		var obj = document.getElementById('texte1');
-			if (obj) {
-				if (document.form1.case1.checked) {
-				obj.className = 'classe2';
-				} 
-				else {
-				obj.className = 'classe1';
-				}
-			}
-			var obj = document.getElementById('texte2');
-			if (obj) {
-				if (document.form1.case2.checked) {
-				obj.className = 'classe2';
-				} 
-				else {
-				obj.className = 'classe1';
-				}
-			}
-			var obj = document.getElementById('texte3');
-			if (obj) {
-				if (document.form1.case3.checked) {
-				obj.className = 'classe2';
-				} 
-				else {
-				obj.className = 'classe1';
-				}
-			}
-		}
-
-	</script>
 </head>
 <body class="container" style="background-image:url('logo.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-size: cover;">
 
-<form name="form1" class="row">
+<form name="nouveaudossier" class="row" style="padding-top:50px;">
 
 	<!-- MENU DE NAVIGATION-->
 		<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
@@ -91,9 +57,9 @@
 
 		</div>	
 
-	<!-- SECTION DE VISUALISATION DU CONTENU DU PROJET-->
+	<!-- SECTION D'ENREGISTREMENT DU DOSSIER-->
 		
-		<div class="col-xs-12 col-sm-9 col-md-11 col-lg-9"  >
+		<div class="col-xs-12 col-sm-12 col-md-11 col-lg-11"  >
 			<section class="container" >
 				<div>
 					
@@ -106,16 +72,24 @@
 						<table>
 							
 							<tr>
-								<td>
-									<label style="font-size: 30px;" for="iddossier">id du dossier</label>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right;">
+									<label for="iddossier">id du dossier</label>
 								</td>
 								<td>
 									<input type="text" name="iddossier" id="iddossier" />
 								</td>
 							</tr>
 							<tr>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right;">
+									<label for="projet">Projet concerné</label>
+								</td>
 								<td>
-									<label style="font-size: 30px;" for="nomclient">nom du client</label>
+									<input type="text" name="projet" id="projet" />
+								</td>
+							</tr>
+							<tr>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right;">
+									<label for="nomclient">nom du client</label>
 								</td>
 								<td>
 									<input type="text" name="nomclient" id="nomclient" />
@@ -124,8 +98,8 @@
 							</tr>
 							
 							<tr>
-								<td>
-									<label style="font-size: 30px;" for="numclient">numero du client</label>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right;">
+									<label for="numclient">numero du client</label>
 								</td>
 								<td>
 									<input type="text" name="numclient" id="numclient" />
@@ -133,38 +107,38 @@
 								
 							</tr>
 							<tr>
-								<td>
-									<label style="font-size: 30px;" for="typemaison">type de maison</label>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right;" >
+									<label for="typemaison">type de maison</label>
 								</td>
 								<td>
-									<input type="text" name="ypemaison" id="typemaison" />
-								</td>
-								
-							</tr>
-							<tr>
-								<td>
-									<label style="font-size: 30px;" for="typemaison">Villes ou district</label>
-								</td>
-								<td>
-									<input type="text" name="ypemaison" id="typemaison" />
+									<input type="text" name="typemaison" id="typemaison" />
 								</td>
 								
 							</tr>
 							<tr>
-								<td>
-									<label style="font-size: 30px;" for="typemaison">Commune</label>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right; ">
+									<label for="villedistrict">Ville ou district</label>
 								</td>
 								<td>
-									<input type="text" name="ypemaison" id="typemaison" />
+									<input type="text" name="villedistrict" id="villedistrict" />
 								</td>
 								
 							</tr>
 							<tr>
-								<td>
-									<label style="font-size: 30px;" for="typemaison">Zone</label>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right;">
+									<label for="commune">Commune</label>
 								</td>
 								<td>
-									<input type="text" name="ypemaison" id="typemaison" />
+									<input type="text" name="commune" id="commune" />
+								</td>
+								
+							</tr>
+							<tr>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right;">
+									<label for="typemaison">Zone</label>
+								</td>
+								<td>
+									<input type="text" name="zone" id="zone" />
 								</td>
 								
 							</tr>
@@ -173,54 +147,15 @@
 						<!--SECTION DE DESCRIPTIF-->
 						<div style="margin-top: 10px;" class="col-xs-12 col-sm-9 col-md-11 col-lg-9">
 							<h1>DESCRIPTIF</h1>
-								<textarea id="w3review" name="w3review" style= "max-width:100%;" cols="150"></textarea>
+								<textarea id="descriptif" name="descriptif" style= "max-width:100%;" cols="150"></textarea>
 								<input type="file" name="Ajoutez un fichier">						
 								</div>
 						</div>
 						<div style="text-align: center ;margin-top: 30px;">
-							<button type="submit" class="btn btn-default">Enregistrer</button>		
+							<button type="submit"  name="nouveaudossier" class="btn btn-default">Enregistrer</button>		
 						</div>
 			</section>	
 		</div>
-
-	<!-- SECTION DE VISUALISATION DU CONTENU DU DOSSIER-->
-		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2"  >
-			
-			<!-- SECTION DE VISUALISATION Des etapes-->
-				<section class="container" >
-					<div><h1 style="text-align: center;">ETAPE</h1><br/></div>
-
-					<!--BOUTON DES ETAPES-->
-						
-							<div>
-								<input type="checkbox" name="case1" onclick="javascript:coche();" />
-								<label id="texte1" class="classe1 form-check-label" for="flexCheckDefault">ETAPE </label>
-							</div>
-							<div>
-								<input type="checkbox" name="case2" onclick="javascript:coche();" value="" id="flexCheckDefault" />
-								<label id="texte2" class="classe1 form-check-label" for="flexCheckDefault">ETAPE </label>
-							</div>
-							<div>
-								<input type="checkbox" name="case3" onclick="javascript:coche();"id="flexCheckDefault"/>
-								<label id="texte3" class="classe1 form-check-label" for="flexCheckDefault">ETAPE </label>
-							</div>
-
-				</section>	
-			<!-- SECTION DE planificatio-->
-				<h1>PLANIFICATION</h1>
-					<div>
-						<input type="text" name="Echeance" placeholder="Echeance"  onfocus="(this.type='date')">
-					</div>
-					<div>
-						<input type="text" name="Rappel" placeholder="Reporter" onfocus="(this.type='date')" />
-					</div>
-					<div>
-						<input type="text" name="Affecté à" placeholder="Affecté à"  />
-					</div>
-		</div>
-	
-
-
 </form>
 	
 
