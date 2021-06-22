@@ -25,7 +25,7 @@ session_start();
               $_SESSION['prenomcollaborateur']= $userinfo['prenomcollaborateur'];
               $_SESSION['emailcollaborateur']= $userinfo['emailcollaborateur'];
               $_SESSION['fonctioncollaborateur']= $userinfo['fonctioncollaborateur'];
-              header("location:interface utilisateur OBOX.html?id=".$_SESSION['idcollaborateur']);
+              header("location:interface utilisateur OBOX.html?id="/*.$_SESSION['idcollaborateur']*/);
             }
             else
             {

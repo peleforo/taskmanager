@@ -1,74 +1,85 @@
 <!DOCTYPE html>
 <?php
   
-  $bdd = new PDO('mysql:host=localhost;dbname=taskmanager','root','');
-  //VERIFICATION D'ENVOI DE FORMULIARE
-    if (isset($_POST['savecollab'])) {
-      extract($_POST);
-    //VERIFICATION DU REMPLISSAGE DES CHAMPS
-      if (!empty($nom) && !empty($prenom) && !empty($email) && !empty($mdp) && !empty($mdp2) && !empty($numero) && !empty($fonction) ) {
+  try {
+    
+    $bdd = new PDO('mysql:host=localhost;dbname=taskmanager','root','');
 
-        //PROTECTION DES CHAMPS CONTRE LES SCRIPTS
-          $nom=htmlspecialchars($nom);
-          $prenom=htmlspecialchars($prenom);
-          $email=htmlspecialchars($email);
-          $mdp=sha1($mdp);
-          $mdp2=sha1($mdp2);
-          $numero=htmlspecialchars($numero);
-          $fonction=htmlspecialchars($fonction);
-          $numerolength = strlen($numero);
+      //On définit le mode d'erreur de PDO sur Exception
+        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        //VERIFICATION DE VALIDITE DE MAIL
-          if(filter_var($email,FILTER_VALIDATE_EMAIL)){
-            //VERIFICATION D'EXISTENCE D'ADRESSE MAIL DANS LA BASE DE DONNEE
-            //RECHERCHE DANS LA BD
-              $reqmail = $bdd->prepare("SELECT * FROM collaborateur WHERE emailcollaborateur = ?");
-              $reqmail -> execute(array($email));
-              $mailexist = $reqmail->rowcount();
-            //CONFRONTATION DE LA BD AVEC LE FORMULAIRE
-                if ($mailexist == 0) {
-                //VERIFICATION DE CONFORMITE DE NUMERO
-                  if ($numerolength == 10) {
-                      //VERIFICATION DE CONFORMITE DE MOT DE PASSE ENTRE
-                        if ($mdp == $mdp2) 
-                        {
-                          //ENREGISTREMENT D'UN NOUVEAU MEMBRE
-                            $insertcollab = $bdd->prepare("INSERT INTO collaborateur(nomcollaborateur, prenomcollaborateur, emailcollaborateur, motdepasse, numerocollaborateur, fonctioncollaborateur) VALUES (?,?,?,?,?,?)");
-                            $insertcollab->execute(array($nom, $prenom, $email, $mdp, $numero, $fonction));
-                            $suc = "Nouveau compte collaborateur crée!!!!";
-                        }
-                        else
-                        {
-                          $msg = "les mots de passe saisis ne sont pas conformes!!!!!!!!";
-                        }
+    //VERIFICATION D'ENVOI DE FORMULIARE
+      if (isset($_POST['savecollab'])) {
+        extract($_POST);
+      //VERIFICATION DU REMPLISSAGE DES CHAMPS
+        if (!empty($nom) && !empty($email) && !empty($mdp) && !empty($mdp2) && !empty($numero) && !empty($fonction) &&!empty($service)) {
 
-                    }  
+          //PROTECTION DES CHAMPS CONTRE LES SCRIPTS
+            $nom=htmlspecialchars($nom);
+            $email=htmlspecialchars($email);
+            $mdp=sha1($mdp);
+            $mdp2=sha1($mdp2);
+            $numero=htmlspecialchars($numero);
+            $fonction=htmlspecialchars($fonction);
+            $numerolength = strlen($numero);
+
+          //VERIFICATION DE VALIDITE DE MAIL
+            if(filter_var($email,FILTER_VALIDATE_EMAIL)){
+              //VERIFICATION D'EXISTENCE D'ADRESSE MAIL DANS LA BASE DE DONNEE
+              //RECHERCHE DANS LA BD
+                $reqmail = $bdd->prepare("SELECT * FROM collaborateur WHERE emailcollaborateur = ?");
+                $reqmail -> execute(array($email));
+                $mailexist = $reqmail->rowcount();
+              //CONFRONTATION DE LA BD AVEC LE FORMULAIRE
+                  if ($mailexist == 0) {
+                  //VERIFICATION DE CONFORMITE DE NUMERO
+                    if ($numerolength == 10) {
+                        //VERIFICATION DE CONFORMITE DE MOT DE PASSE ENTRE
+                          if ($mdp == $mdp2) 
+                          { 
+                              //ENREGISTREMENT D'UN NOUVEAU MEMBRE
+                                $insertcollab = $bdd->prepare("INSERT INTO collaborateur(nomcollaborateur, emailcollaborateur, motdepasse, numerocollaborateur, fonctioncollaborateur,service) VALUES (?,?,?,?,?,?)");
+                                $insertcollab->execute(array($nom, $email, $mdp, $numero, $fonction, $service));
+                                $suc = "Nouveau compte collaborateur crée!!!!";
+                                header("location: index.php");  
+                          }
+                          else
+                          {
+                            $msg = "les mots de passe saisis ne sont pas conformes!!!!!!!!";
+                          }
+
+                      }  
+                    else
+                    {
+                      $msg ="le numero ne repecte pas la numerotation en vigueur en cote d'ivoire";
+                    }
+                    
+                    }
+                    else
+                    {
+                      $msg= "mail deja existant.Utilisez un autre!!!!!!!! ";
+                    }
+                  }
                   else
                   {
-                    $msg ="le numero ne repecte pas la numerotation en vigueur en cote d'ivoire";
+                    $msg = "votre addresse mail n'est pas valide";
                   }
-                  
-                  }
-                  else
-                  {
-                    $msg= "mail deja existant.Utilisez un autre!!!!!!!! ";
-                  }
-                }
-                else
-                {
-                  $msg = "votre addresse mail n'est pas valide";
-                }
 
 
+        }
+        else
+        {
+          $msg = "Tous les champs doivent etre rempli!!!!!!!!!!!!!!!!!!";
+        }
+        /*
+        */
       }
-      else
-      {
-        $msg = "Tous les champs doivent etre rempli!!!!!!!!!!!!!!!!!!";
-      }
-      /*
-      */
-    }
 
+  } catch (PDOException $e) {
+     echo "Erreur :". $e->getMessage();
+    
+  }
+    
 
 
 ?>
@@ -134,17 +145,24 @@ input{
 }
  	</style>
 
-<form name="formulaire" action="" method="post">
+<form name="savecollab" action="" method="POST">
 	<div style="text-align: center;"><img src="logo.jpg" width="100px" height="100px"></div>
   <fieldset><legend><h1>formulaire du collaborateur</h1></legend>
       <pre>
       <input type="text" size="40" name="nom" placeholder="nom " > 
-      <input type="text" size="40" name="prenom" placeholder="Prenom">
       <input type="email" size="40" name="email" placeholder="email ">
       <input type="password" size="40" name="mdp" placeholder="mot de passe">
       <input type="password" size="40" name="mdp2" placeholder="confirmez votre mot de passe">
       <input type="text"  size="40" name="numero" placeholder="numero">
       <input type="text" size="40" name="fonction" placeholder="fonction">
+      <div> 
+          <span>
+            <select name="service" id="service">
+              <option value="1">choisir le service</option>
+              <option value="2">FTTH</option>
+            </select>
+          </span>
+      </div>
   </pre>
       <?php 
       if (isset($msg)) {
@@ -165,3 +183,4 @@ input{
 </form>
 </body>
 </html>
+

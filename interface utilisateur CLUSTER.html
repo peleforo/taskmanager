@@ -49,15 +49,19 @@
 			  </style> 
 		<!-- visualisation des dossiers selon leur etat-->
 			<div class="col-xs-12 col-sm-11 col-md-11 col-lg-11"  >
-				<h1 style="text-align: center; font-size: 50px;margin-bottom: 50px;">CLUSTER <span title="Ajoutez un nouveau dossier"><a href="nouveaudossier.html"><img src="bouton ajout.png"></a></span></h1>
-				<div class="containers">
+				<h1 style="text-align: center; font-size: 50px;margin-bottom: 50px;">CLUSTER <span title="Ajoutez un nouveau dossier"><a href="nouveaudossier CLUSTER.php"><img src="bouton ajout.png"></a></span></h1>
+				<!--BOUTON DE DECONNEXION-->
+					<div style="text-align: right;margin-bottom: 50px;">
+						<a href="deconnexion.php"><input type="submit" name="deconnexion" value="se deconnecter"></a>
+					</div>
+				<div class="containers col-xs-12 col-sm-11 col-md-11 col-lg-11">
 
 				    <div class="container-onglets">
-				        <div class="onglets active" data-anim="1">En cours</div>
-				        <div class="onglets" data-anim="2">En attente</div>
-				        <div class="onglets" data-anim="3">Reporté</div>
-				        <div class="onglets" data-anim="4">validé</div>
-				        <div class="onglets" data-anim="5">Perdu</div>
+				        <div class="onglets active" data-anim="1">En cours (5)</div>
+				        <div class="onglets" data-anim="2">En attente (2)</div>
+				        <div class="onglets" data-anim="3">Reporté (4)</div>
+				        <div class="onglets" data-anim="4">validé (8)</div>
+				        <div class="onglets" data-anim="5">Perdu (0)</div>
 				    </div>
 
 				    <div class="contenu activeContenu" data-anim="1">
