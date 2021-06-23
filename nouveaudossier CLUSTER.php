@@ -73,16 +73,16 @@ session_start();
 				<h1>FTTH</h1>                            
 			  <ul class="nav nav-tabs flex-column">
 				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur OBOX.html" style="color: black;">OBOX</a>
+				 	<a class="nav-link" href="interface utilisateur OBOX.php" style="color: black;">OBOX</a>
 				 </li>
 				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur OFIBRE.html" style="color: black;">OFIBRE</a>
+				 	<a class="nav-link" href="interface utilisateur OFIBRE.php" style="color: black;">OFIBRE</a>
 				 </li>
 				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur CI.html" style="color: black;">CI</a>
+				 	<a class="nav-link" href="interface utilisateur CI.php" style="color: black;">CI</a>
 				 </li>
 				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur CLUSTER.html" style="color: black;">CLUSTER</a>
+				 	<a class="nav-link" href="interface utilisateur CLUSTER.php" style="color: black;">CLUSTER</a>
 				 </li>
 			</ul>
 		  
