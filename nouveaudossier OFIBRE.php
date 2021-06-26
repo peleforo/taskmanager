@@ -26,7 +26,8 @@
 	        
 	      //VERIFICATION DU REMPLISSAGE DES CHAMPS
 	        if ( !empty($iddossier) && !empty($projet) && !empty($nomclient) && !empty($numclient) && !empty($typemaison) && !empty($villedistrict) && !empty($commune) && !empty($zone)) {
-	          	$reqdossier = $bdd->prepare("SELECT * FROM dossier WHERE iddossier = ?");
+
+	        		$reqdossier = $bdd->prepare("SELECT * FROM dossier WHERE iddossier = ?");
                 $reqdossier -> execute(array($iddossier));
                 $dossierexist = $reqdossier->rowcount();
 
@@ -47,7 +48,6 @@
 	        	}
 
 	    }
-
 
 	 } catch (PDOException $e) {
      echo "Erreur :". $e->getMessage();
@@ -74,16 +74,16 @@
 				<h1>FTTH</h1>                            
 			  <ul class="nav nav-tabs flex-column">
 				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur OBOX.php" style="color: black;">OBOX</a>
+				 	<a class="nav-link" href="interface utilisateur OBOX.html" style="color: black;">OBOX</a>
 				 </li>
 				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur OFIBRE.php" style="color: black;">OFIBRE</a>
+				 	<a class="nav-link" href="interface utilisateur OFIBRE.html" style="color: black;">OFIBRE</a>
 				 </li>
 				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur CI.php" style="color: black;">CI</a>
+				 	<a class="nav-link" href="interface utilisateur CI.html" style="color: black;">CI</a>
 				 </li>
 				 <li class="nav-item">
-				 	<a class="nav-link" href="interface utilisateur CLUSTER.php" style="color: black;">CLUSTER</a>
+				 	<a class="nav-link" href="interface utilisateur CLUSTER.html" style="color: black;">CLUSTER</a>
 				 </li>
 			</ul>
 		  
@@ -140,7 +140,7 @@
 								<td>
 									<select name="projet" id="projet">
 							              <option value="1">--</option>
-							              <option value="4">CI</option>
+							              <option value="3">OFIBRE</option>
 							    </select>
 								</td>
 							</tr>
@@ -223,8 +223,6 @@
         if (isset($suc)) {
           echo '<font color="green">' . $suc .'</font>' ;
          }
- 
-        
         ?>
 			</section>	
 		</div>
