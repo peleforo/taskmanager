@@ -2,6 +2,7 @@
 <html lang="fr">
 <?php
 
+  
 	 try {
 	 	$bdd = new PDO('mysql:host=localhost;dbname=taskmanager','root','');
 
@@ -17,13 +18,24 @@
 ?>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>onglets</title>
 	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>	
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="css/styli.css">
 </head>
 <body class="container">
 	<div class="row">
@@ -89,13 +101,16 @@
 						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 							        <?php
 								     
-								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 1 ");
+								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 1 ");
 			                			$nbredossier = $reqetat->rowcount();
 
 				                			echo '<div>' . $nbredossier .  '</div>' ;
 				                		
 
+
 							         ?>
+
+							         	
 						        )
 					    	</div>
 					        <div class="container onglets" data-anim="2">En attente 
@@ -103,7 +118,7 @@
 						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 							        <?php
 								     
-								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 2 ");
+								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 2 ");
 			                			$nbredossier = $reqetat->rowcount();
 
 				                			echo '<div>' . $nbredossier .  '</div>' ;
@@ -117,7 +132,7 @@
 						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 							        <?php
 								     
-								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 3 ");
+								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 3 ");
 			                			$nbredossier = $reqetat->rowcount();
 
 				                			echo '<div>' . $nbredossier .  '</div>' ;
@@ -131,7 +146,7 @@
 						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 							        <?php
 								     
-								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 4 ");
+								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 4 ");
 			                			$nbredossier = $reqetat->rowcount();
 
 				                			echo '<div>' . $nbredossier .  '</div>' ;
@@ -145,7 +160,7 @@
 						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 							        <?php
 								     
-								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 4 ");
+								        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 5 ");
 			                			$nbredossier = $reqetat->rowcount();
 
 				                			echo '<div>' . $nbredossier .  '</div>' ;
@@ -159,11 +174,12 @@
 					    <div class="contenu activeContenu" data-anim="1">
 					        <?php
 						     
-						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 1 ");
+						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 1 ");
 		                		
 		                		while ($donnees = $reqetat->fetch()) {
 
-		                			echo '<div>' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</div>' ;
+		                			echo '<a href="">' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</a>' ;
+		                			
 		                			
 		                		}
 
@@ -173,7 +189,7 @@
 					    <div class="contenu" data-anim="2">
 		       				<?php
 						     
-						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 2 ");
+						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 2 ");
 		                		
 		                		while ($donnees = $reqetat->fetch()) {
 
@@ -187,32 +203,110 @@
 					    <div class="contenu" data-anim="3">
 					        <?php
 						     
-						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 3 ");
+						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 3 ");
 		                		
-		                		while ($donnees = $reqetat->fetch()) {
+						        while ($donnees = $reqetat->fetch()) {
 
 		                			echo '<div>' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</div>' ;
 		                			
 		                		}
-
 					         ?>
 					    </div>
 					    <div class="contenu" data-anim="4">
-					        <?php
-						     
-						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 4 ");
-		                		
-		                		while ($donnees = $reqetat->fetch()) {
+					        	
+                        
+					                        
+											<div class="container">
 
-		                			echo '<div>' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</div>' ;
-		                			
-		                		}
+					                          <div class="table-responsive custom-table-responsive">
 
-					         ?>				    </div>
+					                            <table class="table custom-table">
+					                              <thead>
+					                                <tr>  
+
+					                                  <th scope="col">
+					                                    <label class="control control--checkbox">
+					                                      <input type="checkbox"  class="js-check-all"/>
+					                                      <div class="control__indicator"></div>
+					                                    </label>
+					                                  </th>
+					                                  
+					                                  <th scope="col">id du dossier</th>
+					                                  <th scope="col">nom du client</th>
+					                                  <th scope="col">localisation</th>
+					                                  <th scope="col">habitation</th>
+					                                  <th scope="col">numero</th>
+
+					                                </tr>
+					                              </thead>
+					                              <tbody>
+					                                <tr scope="row">
+					                                  <th scope="row">
+					                                    <label class="control control--checkbox">
+					                                      <input type="checkbox"/>
+					                                      <div class="control__indicator"></div>
+					                                    </label>
+					                                  </th>
+					                                  <td>
+					                                    <?php
+
+					                                    	$reqdossier = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 3 ");
+					                                    	while ($dossier = $reqdossier->fetch()) {
+
+									                			  echo $dossier['iddossier'];
+									                			
+									                		}
+					                                    ?>
+					                                  </td>
+					                                  <td><a href="#">
+					                                  	<?php
+					                                    	while ($donnees = $reqetat->fetch()) {
+
+									                			echo '<div>' . $donnees['nomClient'] . '</div>' ;
+									                			
+									                		}
+					                                    ?>
+					                                  </a></td>
+					                                  <td>
+					                                    <?php
+					                                    	while ($donnees = $reqetat->fetch()) {
+
+									                			echo '<div>' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] .  '</div>' ;
+									                			
+									                		}
+					                                    ?>
+					                                  </td>
+					                                  <td>
+					                                  	<?php
+					                                    	while ($donnees = $reqetat->fetch()) {
+
+									                			echo '<div>' . $donnees['idDossier'] . '</div>' ;
+									                			
+									                		}
+					                                    ?>
+					                                  </td>
+					                                  <td>
+					                                  	<?php
+					                                    	while ($donnees = $reqetat->fetch()) {
+
+									                			echo '<div>' . $donnees['idDossier'] . '</div>' ;
+									                			
+									                		}
+					                                    ?>
+					                                  </td>
+					                                </tr>
+					                                <tr class="spacer"><td colspan="100"></td></tr>
+					                                
+					                                
+					                              </tbody>
+					                            </table>
+					                          </div>
+					                        </div>		    
+					     </div>
 					    <div class="contenu" data-anim="5">
 					        <?php
 						     
-						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 3 AND statutdossier = 5 ");
+						        $reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 5 ");
 		                		
 		                		while ($donnees = $reqetat->fetch()) {
 

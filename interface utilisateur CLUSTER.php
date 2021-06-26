@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr">
 <?php
-session_start();
+
   
 	 try {
 	 	$bdd = new PDO('mysql:host=localhost;dbname=taskmanager','root','');
@@ -9,6 +8,17 @@ session_start();
 	 	//On définit le mode d'erreur de PDO sur Exception
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        	
+        	$reqetat = $bdd->prepare("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = ? ");
+        	$reqetat -> execute(array());
+			$nbredossier = $reqetat->rowcount();
+			$dossierinfo = $reqetat->fetch();
+
+
+        	
+
+
+	        
 
 	    
 
@@ -16,6 +26,7 @@ session_start();
      echo "Erreur :". $e->getMessage();
 	 }
 ?>
+<html lang="fr">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,84 +92,121 @@ session_start();
 					<div style="text-align: right;margin-bottom: 50px;">
 						<a href="deconnexion.php"><input type="submit" name="deconnexion" value="se deconnecter"></a>
 					</div>
+				<!--MENU A ONGLET-->
 				<div class="containers col-xs-12 col-sm-11 col-md-11 col-lg-11">
+					<!--EN TETE DES ONGLETS-->
+					    <div class="container-onglets">
+						    <div class="onglets active" data-anim="1">En cours 
+						    	(
+						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+						    	<?php
+						    		$dossierinfo['statutdossier'] = 1 ;
+						    		$nbredossier = $reqetat->rowcount();
+						    		echo '<div>' . $nbredossier .  '</div>' ;
 
-				    <div class="container-onglets">
-				        <div class="onglets active" data-anim="1">En cours (5)</div>
-				        <div class="container onglets" data-anim="2">En attente (2)</div>
-				        <div class="container onglets" data-anim="3">Reporté (4)</div>
-				        <div class="container onglets" data-anim="4">validé (8)</div>
-				        <div class="container onglets" data-anim="5">Perdu (0)</div>
-				    </div>
+						    	?>
 
-				    <div class="contenu activeContenu" data-anim="1">
-				        <?php
-					     
-					        $reqetat = $bdd->query("SELECT * FROM dossier WHERE statutdossier = 1 ");
-	                		
-	                		while ($donnees = $reqetat->fetch()) {
+						        )
+					    	</div>
+					        <div class="container onglets" data-anim="2">En attente 
+					        	(
+						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 
-	                			echo '<div>' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</div>' ;
-	                			
-	                		}
+						        )
+					        </div>
+					        <div class="container onglets" data-anim="3">Reporté 
+					        	(
+						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 
-				         ?>
-				    </div> 
+						        )
+					        </div>
+					        <div class="container onglets" data-anim="4">validé
+					        	(
+						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 
-				    <div class="contenu" data-anim="2">
-	       				<?php
-					     
-					        $reqetat = $bdd->query("SELECT * FROM dossier WHERE statutdossier = 2 ");
-	                		
-	                		while ($donnees = $reqetat->fetch()) {
+						        )
+					        </div>
+					        <div class="container onglets" data-anim="5">Perdu 
+					        	(
+						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 
-	                			echo '<div>' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</div>' ;
-	                			
-	                		}
+						        )
+					        </div>
+					    </div>
+					<!--CONTENU DES ONGLETS-->
+					    <div class="contenu activeContenu" data-anim="1">
+					       <thead>
+					            <tr>  
 
-				         ?>
-				    </div>
+					              <th scope="col">
+					                <label class="control control--checkbox">
+					                  <input type="checkbox"  class="js-check-all"/>
+					                  <div class="control__indicator"></div>
+					                </label>
+					              </th>
+					              
+					              <th scope="col">Order</th>
+					              <th scope="col">Name</th>
+					              <th scope="col">Occupation</th>
+					              <th scope="col">Contact</th>
+					              <th scope="col">Education</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					        	<?php
+							     
 
-				    <div class="contenu" data-anim="3">
-				        <?php
-					     
-					        $reqetat = $bdd->query("SELECT * FROM dossier WHERE statutdossier = 3 ");
-	                		
-	                		while ($donnees = $reqetat->fetch()) {
+						         ?>
+					        </tbody> 
+					    </div> 
 
-	                			echo '<div>' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</div>' ;
-	                			
-	                		}
+					    <div class="contenu" data-anim="2">
+		       				<?php
+						     
+				
+					         ?>
+					    </div>
 
-				         ?>
-				    </div>
-				    <div class="contenu" data-anim="4">
-				        <?php
-					     
-					        $reqetat = $bdd->query("SELECT * FROM dossier WHERE statutdossier = 4 ");
-	                		
-	                		while ($donnees = $reqetat->fetch()) {
+					    <div class="contenu" data-anim="3">
+					        <?php
+						     
 
-	                			echo '<div>' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</div>' ;
-	                			
-	                		}
 
-				         ?>				    </div>
-				    <div class="contenu" data-anim="5">
-				        <?php
-					     
-					        $reqetat = $bdd->query("SELECT * FROM dossier WHERE statutdossier = 5 ");
-	                		
-	                		while ($donnees = $reqetat->fetch()) {
+					         ?>
+					    </div>
+					    <div class="contenu" data-anim="4">
+					    	<thead>
+					            <tr>  
 
-	                			echo '<div>' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</div>' ;
-	                			
-	                		}
+					              <th scope="col">
+					                <label class="control control--checkbox">
+					                  <input type="checkbox"  class="js-check-all"/>
+					                  <div class="control__indicator"></div>
+					                </label>
+					              </th>
+					              
+					              <th scope="col">Order</th>
+					              <th scope="col">Name</th>
+					              <th scope="col">Occupation</th>
+					              <th scope="col">Contact</th>
+					              <th scope="col">Education</th>
+					            </tr>
+					        </thead>
+					        <tbody>
+					        	<?php
+							     
 
-				         ?>
-				    </div>
+						         ?>
+					        </tbody> 				    
+					    </div>
+					    <div class="contenu" data-anim="5">
+					        <?php
+						     
 
-			    </div>
+
+					         ?>
+					    </div>
+				</div>
 			</div>
 	</div>
 
