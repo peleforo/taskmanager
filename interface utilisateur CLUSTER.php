@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-
+session_start();
   
 	 try {
 	 	$bdd = new PDO('mysql:host=localhost;dbname=taskmanager','root','');
@@ -8,17 +8,6 @@
 	 	//On définit le mode d'erreur de PDO sur Exception
         $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        	
-        	$reqetat = $bdd->prepare("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = ? ");
-        	$reqetat -> execute(array());
-			$nbredossier = $reqetat->rowcount();
-			$dossierinfo = $reqetat->fetch();
-
-
-        	
-
-
-	        
 
 	    
 
@@ -27,17 +16,22 @@
 	 }
 ?>
 <html lang="fr">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>onglets</title>
+	<link rel="stylesheet" type="text/css" href="tabs.css">
 	<link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>	
-</head>
+
 <body class="container">
+<?php
+
+	if (isset($_SESSION['idCollaborateur'])) {
+		// code...
+
+?>
+
 	<div class="row">
 		<!--Menu de navigation-->
 			<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
@@ -50,6 +44,9 @@
 					<div class="collapse navbar-collapse justify-content-between" id="Centenunav">
 					-->
 							<ul class="nav nav-tabs flex-column">
+								<li>
+								 	<a class="nav-link" href="dashboard.php" style="color: black;">MA JOURNEE</a>
+								 </li>
 								 <li>
 								 	<a class="nav-link" href="interface utilisateur OBOX.php" style="color: black;">OBOX</a>
 								 </li>
@@ -93,123 +90,159 @@
 						<a href="deconnexion.php"><input type="submit" name="deconnexion" value="se deconnecter"></a>
 					</div>
 				<!--MENU A ONGLET-->
-				<div class="containers col-xs-12 col-sm-11 col-md-11 col-lg-11">
-					<!--EN TETE DES ONGLETS-->
-					    <div class="container-onglets">
-						    <div class="onglets active" data-anim="1">En cours 
-						    	(
-						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
-						    	<?php
-						    		$dossierinfo['statutdossier'] = 1 ;
-						    		$nbredossier = $reqetat->rowcount();
-						    		echo '<div>' . $nbredossier .  '</div>' ;
+				<!--MENU A ONGLET-->
+				<div class="col-xs-12 col-sm-11 col-md-11 col-lg-11">	
+						<!--EN TETE DES ONGLETS-->
+						<ul class="tabs">
+							<li class="active"><a href="#encours" style="font-size: 30px;">En cours
+								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+								<?php
+											     
+										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 1 ");
+						                $nbredossier = $reqetat->rowcount();
 
-						    	?>
+							            echo '<span>' . $nbredossier .  '</span>' ;
+								?>
+							</a></li>
+							<li><a href="#enattente"style="font-size: 30px;">En attente
+								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+								<?php
+											     
+										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 2 ");
+						                $nbredossier = $reqetat->rowcount();
 
-						        )
-					    	</div>
-					        <div class="container onglets" data-anim="2">En attente 
-					        	(
-						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+							            echo '<span>' . $nbredossier .  '</span>' ;
+								?>
+							</a></li>
+							<li><a href="#reporte" style="font-size: 30px;">Reporté
+								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+								<?php
+											     
+										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 3 ");
+						                $nbredossier = $reqetat->rowcount();
 
-						        )
-					        </div>
-					        <div class="container onglets" data-anim="3">Reporté 
-					        	(
-						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+							            echo '<span>' . $nbredossier .  '</span>' ;
+								?>
+							</a></li>
+							<li><a href="#valide" style="font-size: 30px;">Validé
+								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+								<?php
+											     
+										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 4 ");
+						                $nbredossier = $reqetat->rowcount();
 
-						        )
-					        </div>
-					        <div class="container onglets" data-anim="4">validé
-					        	(
-						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+							            echo '<span>' . $nbredossier .  '</span>' ;
+								?>
+							</a></li>
+							<li><a href="#perdu" style="font-size: 30px;">Perdu
+								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+								<?php
+											     
+										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 5 ");
+						                $nbredossier = $reqetat->rowcount();
 
-						        )
-					        </div>
-					        <div class="container onglets" data-anim="5">Perdu 
-					        	(
-						    	<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+							            echo '<span>' . $nbredossier .  '</span>' ;
+								?>
+							</a></li>
+						</ul>
 
-						        )
-					        </div>
-					    </div>
-					<!--CONTENU DES ONGLETS-->
-					    <div class="contenu activeContenu" data-anim="1">
-					       <thead>
-					            <tr>  
+						<!--CONTENU DES ONGLETS-->
+						<div class="tabs-content" style="font-size: 30px;">
+							<div class="tab-content active" id="encours"> 
+								<?php
+									     
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 1 ");
+					                		
+					                while ($donnees = $reqetat->fetch()) {
 
-					              <th scope="col">
-					                <label class="control control--checkbox">
-					                  <input type="checkbox"  class="js-check-all"/>
-					                  <div class="control__indicator"></div>
-					                </label>
-					              </th>
-					              
-					              <th scope="col">Order</th>
-					              <th scope="col">Name</th>
-					              <th scope="col">Occupation</th>
-					              <th scope="col">Contact</th>
-					              <th scope="col">Education</th>
-					            </tr>
-					        </thead>
-					        <tbody>
-					        	<?php
-							     
+					               $lien ='afficheDossier.php?idDossier='. $donnees['idDossier'] ;
+						                			$_SESSION['idDossier'] = $donnees['idDossier'] ;
+						                			
 
-						         ?>
-					        </tbody> 
-					    </div> 
+						                			echo '<div><a href="'.$lien.'">' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</a></div>' ;
+						                		}
 
-					    <div class="contenu" data-anim="2">
-		       				<?php
-						     
-				
-					         ?>
-					    </div>
+								?>
+							</div>
+							<div class="tab-content" id="enattente"> 
+								 <?php
+									     
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 2 ");
+					                		
+					                while ($donnees = $reqetat->fetch()) {
 
-					    <div class="contenu" data-anim="3">
-					        <?php
-						     
+					                $lien ='afficheDossier.php?idDossier='. $donnees['idDossier'] ;
+						                			$_SESSION['idDossier'] = $donnees['idDossier'] ;
+						                			
 
+						                			echo '<div><a href="'.$lien.'">' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</a></div>' ;
+						                		}
 
-					         ?>
-					    </div>
-					    <div class="contenu" data-anim="4">
-					    	<thead>
-					            <tr>  
+								?>
+							</div>
+							<div class="tab-content" id="reporte"> 
+								<?php
+									     
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 3 ");
+					                		
+					                while ($donnees = $reqetat->fetch()) {
 
-					              <th scope="col">
-					                <label class="control control--checkbox">
-					                  <input type="checkbox"  class="js-check-all"/>
-					                  <div class="control__indicator"></div>
-					                </label>
-					              </th>
-					              
-					              <th scope="col">Order</th>
-					              <th scope="col">Name</th>
-					              <th scope="col">Occupation</th>
-					              <th scope="col">Contact</th>
-					              <th scope="col">Education</th>
-					            </tr>
-					        </thead>
-					        <tbody>
-					        	<?php
-							     
+					                $lien ='afficheDossier.php?idDossier='. $donnees['idDossier'] ;
+						                			$_SESSION['idDossier'] = $donnees['idDossier'] ;
+						                			
 
-						         ?>
-					        </tbody> 				    
-					    </div>
-					    <div class="contenu" data-anim="5">
-					        <?php
-						     
+						                			echo '<div><a href="'.$lien.'">' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</a></div>' ;
+						                		}
 
+								?>
+							</div>
+							<div class="tab-content" id="valide"> 
+								<?php
+									     
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 4 ");
+					                		
+					                while ($donnees = $reqetat->fetch()) {
 
-					         ?>
-					    </div>
+					                $lien ='afficheDossier.php?idDossier='. $donnees['idDossier'] ;
+						                			$_SESSION['idDossier'] = $donnees['idDossier'] ;
+						                			
+
+						                			echo '<div><a href="'.$lien.'">' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</a></div>' ;
+						                		}
+
+								?>
+							</div>
+							<div class="tab-content" id="perdu"> 
+							 	<?php
+									     
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 5 AND statutdossier = 5 ");
+					                		
+					                while ($donnees = $reqetat->fetch()) {
+
+					                $lien ='afficheDossier.php?idDossier='. $donnees['idDossier'] ;
+						                			$_SESSION['idDossier'] = $donnees['idDossier'] ;
+						                			
+
+						                			echo '<div><a href="'.$lien.'">' . $donnees['idDossier'] . ' - ' . $donnees['nomClient'] . ' - ' . $donnees['commune'] .' '. $donnees['zone'] . ' ' . $donnees['typeDeMaison'] . ' / ' . $donnees['numeroClient'] . '</a></div>' ;
+						                		}
+
+								?>
+							</div>
+						</div>
 				</div>
 			</div>
 	</div>
 
-    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="tabs.js"></script>
 </body>
 </html>
+<?php
+	}
+	else
+	{
+		header("location:index.php");
+	}
+
+?>
+
+ 

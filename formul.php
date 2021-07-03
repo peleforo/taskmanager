@@ -87,6 +87,9 @@
 <html>
 <head></head>
  <body> 
+  <?php
+  var_dump($_POST);
+?>
  	<style type="text/css">
  		form{
   /* Uniquement centrer le formulaire sur la page */

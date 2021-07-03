@@ -20,12 +20,13 @@ session_start();
             if ($userexist == 1) {
 
               $userinfo = $requser->fetch();
-              $_SESSION['idcollaborateur']= $userinfo['idcollaborateur'];
-              $_SESSION['nomcollaborateur']= $userinfo['nomcollaborateur'];
-              $_SESSION['prenomcollaborateur']= $userinfo['prenomcollaborateur'];
-              $_SESSION['emailcollaborateur']= $userinfo['emailcollaborateur'];
-              $_SESSION['fonctioncollaborateur']= $userinfo['fonctioncollaborateur'];
-              header("location:interface utilisateur OBOX.html?id="/*.$_SESSION['idcollaborateur']*/);
+              $_SESSION['idCollaborateur']= $userinfo['idCollaborateur'];
+              $_SESSION['nomCollaborateur']= $userinfo['nomCollaborateur'];
+              $_SESSION['prenomCollaborateur']= $userinfo['prenomCollaborateur'];
+              $_SESSION['emailCollaborateur']= $userinfo['emailCollaborateur'];
+              $_SESSION['fonctionCollaborateur']= $userinfo['fonctionCollaborateur'];
+              var_dump($_SESSION);
+              header("location:dashboard.php?idCollaborateur=".$_SESSION['idCollaborateur']);
             }
             else
             {
@@ -47,7 +48,10 @@ session_start();
 
 <html>
 <head></head>
- <body> 
+ <body>
+ <?php
+  var_dump($_SESSION);
+?> 
  	<style type="text/css">
  		form{
   /* Uniquement centrer le formulaire sur la page */

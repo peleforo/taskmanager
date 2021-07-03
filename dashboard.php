@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <?php
 session_start();
   
@@ -43,8 +43,8 @@ session_start();
 					</button>                       
 					<div class="collapse navbar-collapse justify-content-between" id="Centenunav">
 					-->
-							<ul class="nav nav-tabs flex-column" >
-								<li>
+							<ul class="nav nav-tabs flex-column">
+								 <li>
 								 	<a class="nav-link" href="dashboard.php" style="color: black;">MA JOURNEE</a>
 								 </li>
 								 <li>
@@ -84,8 +84,9 @@ session_start();
 			  </style> 
 		<!-- visualisation des dossiers selon leur etat-->
 			<div class="col-xs-12 col-sm-11 col-md-11 col-lg-11"  >
-				<h1 style="text-align: center; font-size: 50px;margin-bottom: 50px;">OBOX <span title="Ajoutez un nouveau dossier"><a href="nouveaudossier CI.php"><img src="bouton ajout.png"></a></span></h1>
+				<h1 style="text-align: center; font-size: 70px;margin-bottom: 50px;">DOSSIER DU JOUR <span title="Ajoutez un nouveau dossier"><a href="nouveaudossier.php"><img src="bouton ajout.png"></a></span></h1>
 				<!--BOUTON DE DECONNEXION-->
+
 					<div style="text-align: right;margin-bottom: 50px;">
 						<a href="deconnexion.php"><input type="submit" name="deconnexion" value="se deconnecter"></a>
 					</div>
@@ -93,52 +94,53 @@ session_start();
 				<!--MENU A ONGLET-->
 				<div class="col-xs-12 col-sm-11 col-md-11 col-lg-11">	
 						<!--EN TETE DES ONGLETS-->
-						<ul class="tabs" style="font-size: 30px;">
-							<li class="active"><a href="#encours">En cours
+						<ul class="tabs">
+							<li class="active"><a href="#encours" style="font-size: 30px;">En cours
 								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 								<?php
 											     
-										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 1 ");
+										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 1 ');
+						                $nbredossier = $reqetat->rowcount();
+
+							            echo '<span>' . $nbredossier .  '</span>' ;
+							            
+								?>
+							</a></li>
+							<li><a href="#enattente"style="font-size: 30px;">En attente
+								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
+								<?php
+											     
+										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 2 ');
 						                $nbredossier = $reqetat->rowcount();
 
 							            echo '<span>' . $nbredossier .  '</span>' ;
 								?>
 							</a></li>
-							<li><a href="#enattente">En attente
+							<li><a href="#reporte" style="font-size: 30px;">Reporté
 								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 								<?php
 											     
-										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 2 ");
+										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 3 ');
 						                $nbredossier = $reqetat->rowcount();
 
 							            echo '<span>' . $nbredossier .  '</span>' ;
 								?>
 							</a></li>
-							<li><a href="#reporte">Reporté
+							<li><a href="#valide" style="font-size: 30px;">Validé
 								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 								<?php
 											     
-										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 3 ");
+										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 4 ');
 						                $nbredossier = $reqetat->rowcount();
 
 							            echo '<span>' . $nbredossier .  '</span>' ;
 								?>
 							</a></li>
-							<li><a href="#valide">Validé
+							<li><a href="#perdu" style="font-size: 30px;">Perdu
 								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 								<?php
 											     
-										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 4 ");
-						                $nbredossier = $reqetat->rowcount();
-
-							            echo '<span>' . $nbredossier .  '</span>' ;
-								?>
-							</a></li>
-							<li><a href="#perdu">Perdu
-								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
-								<?php
-											     
-										$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 5 ");
+										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 5 ');
 						                $nbredossier = $reqetat->rowcount();
 
 							            echo '<span>' . $nbredossier .  '</span>' ;
@@ -151,7 +153,7 @@ session_start();
 							<div class="tab-content active" id="encours"> 
 								<?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 1 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 1 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -167,7 +169,7 @@ session_start();
 							<div class="tab-content" id="enattente"> 
 								 <?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 2 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 2 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -183,7 +185,7 @@ session_start();
 							<div class="tab-content" id="reporte"> 
 								<?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 3 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 3 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -199,7 +201,7 @@ session_start();
 							<div class="tab-content" id="valide"> 
 								<?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 4 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 4 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -215,7 +217,7 @@ session_start();
 							<div class="tab-content" id="perdu"> 
 							 	<?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE projetconcerne = 2 AND statutdossier = 5 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 5 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -245,4 +247,3 @@ session_start();
 
 ?>
 
- 
