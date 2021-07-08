@@ -6,7 +6,7 @@ session_start();
 	 	$bdd = new PDO('mysql:host=localhost;dbname=taskmanager','root','');
 	 	//On définit le mode d'erreur de PDO sur Exception
 	        $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+	        //var_dump($_POST);
 	 		
 	        if (isset($_GET['idDossier'])) {
 	        	$getid = intval($_GET['idDossier']);
@@ -56,14 +56,24 @@ session_start();
 	        		$poteau = htmlspecialchars($_POST['poteau']);
 	        		$progression = array();
 
-
+	        		//var_dump($newintervention, $newcloture);
 					//modif references
-		       		$modifref = $bdd ->prepare('UPDATE dossier SET idDossier = ? , nomClient = ? , commune = ? ,villeDistrict = ? ,zone = ? ,numeroClient = ? , emailClient = ? , typeDeMaison = ? ,projetConcerne = ? WHERE idDossier = ?');
-	        		$modifref ->execute(array($newiddossier, $newnom, $newcommune, $newvd, $newzone,$newnumclient,$newemail ,$newtypemaison, $newprojet, $_GET['idDossier']));
+		       		$modifref = $bdd ->prepare('UPDATE dossier SET idDossier = :idDossier , nomClient = :nomClient , commune = :commune ,villeDistrict = :villeDistrict ,zone = :zone ,numeroClient = :numeroClient , emailClient = :emailClient , typeDeMaison = :typeDeMaison ,projetConcerne = :projetConcerne WHERE idDossier = :oldId');
+	        		$modifref ->execute(array(
+	        			'idDossier' => $newiddossier,
+	        			'nomClient' => $newnom,
+	        			'commune' => $newcommune,
+	        			'villeDistrict' => $newvd,
+	        			'zone' => $newzone,
+	        			'numeroClient' => $newnumclient,
+	        			'emailClient' => $newemail,
+	        			'typeDeMaison' => $newtypemaison,
+	        			'projetConcerne' => $newprojet,
+	        			'oldId' => $_GET['idDossier']));
 			   		
-	        		/*//modif plan
-		       		$modifplan = $bdd ->prepare('UPDATE dossier SET statutDossier = ? , debutDossier = ADDDATE() , finDossier = ? WHERE idDossier = ?');
-	        		$modifplan ->execute(array($newetat, $newintervention, $newcloture, $_GET['idDossier']));*/
+	        		/*//modif plan*/
+		       		$modifplan = $bdd ->prepare('UPDATE dossier SET statutDossier = ? , debutDossier = ? , finDossier = ? WHERE idDossier = ?');
+	        		$modifplan ->execute(array($newetat, $newintervention, $newcloture, $_GET['idDossier']));
 			   		
 
 			   		//modif descriptif
@@ -220,7 +230,7 @@ session_start();
 </head>
 <body style="background-color: #f1f1f1;">
 <?php
-	var_dump($_POST);
+	//var_dump($_POST);
 ?>
 	
 	<form action="" name="modif" method="POST" class="container-fluid">
