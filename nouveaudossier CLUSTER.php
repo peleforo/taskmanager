@@ -72,6 +72,9 @@
 
 				<h1>FTTH</h1>                            
 			  <ul class="nav nav-tabs flex-column">
+			  	<li>
+						<a class="nav-link" href="dashboard.php" style="color: black;">MA JOURNEE</a>
+					</li>
 				 <li class="nav-item">
 				 	<a class="nav-link" href="interface utilisateur OBOX.php" style="color: black;">OBOX</a>
 				 </li>

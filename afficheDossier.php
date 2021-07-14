@@ -51,6 +51,7 @@ session_start();
 </head>
 <body>
 <?php
+	var_dump($dossierinfo);
 	var_dump($_POST);
 ?>
 	
@@ -228,43 +229,50 @@ session_start();
 											</td>
 									</tr>
 									
-									<tr class="row100">
-										<td class="column100 column1" data-column="column1">IMPLANTATION DE POTEAU</td>
-										<td class="column100 column2" data-column="column2">
-											<?php  
-													if ($dossierinfo['spec']) {
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAU" AND doss ='.$getid.'');
+							
+											<?php 
+												$reqpot = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
+													$potinfo = $reqstep->fetch();
+
+													if ($dossierinfo['spec'] != "poteau"  /*&& empty($potinfo['nomEtape']=>"IMPLANTATION DE POTEAUX" )*/) {
+											?>
+
+												<tr class="row100">
+													<td class="column100 column1" data-column="column1">IMPLANTATION DE POTEAU</td>
+													<td class="column100 column2" data-column="column2">N\D</td>
+													<td class="column100 column3" data-column="column3">N\D</td>
+													<td class="column100 column3" data-column="column3">N\D</td>
+												</tr>
+											<?php
+														
+												}
+												else
+												{
+													$reqostep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
+													$oetapeinfo = $reqostep->fetch();
+														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['statutEtape'];
-													}
-													else
-													{
-														echo'pas effectué';
-													}	
+													
 												?>
-										</td>
-										<td class="column100 column3" data-column="column3">
-											<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
-													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
-												?>
-											</td>
-											<td class="column100 column4" data-column="column4">
-												<?php  
-													if ($dossierinfo['spec']) {
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAU" AND doss ='.$getid.'');
-													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
-													}
-													else
-													{
-														echo'--';
-													}	
-												?>
-					
-											</td>
-									</tr>						
+												
+												<tr class="row100">
+													<td class="column100 column1" data-column="column1">IMPLANTATION DE POTEAU</td>
+													<td class="column100 column2" data-column="column2"><?php if (!empty($etapeinfo['statutEtape'])) {
+															echo $etapeinfo['statutEtape'];}?></td>
+													<td class="column100 column3" data-column="column3"><?php if (!empty($oetapeinfo['finEtape'])) {
+															echo $oetapeinfo['finEtape'];}	?></td>
+													<td class="column100 column3" data-column="column3"><?php if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														} ?></td>
+												</tr>
+												<?php
+												}
+
+													?>
+
+												
+												
+									
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1">CABLAGE</td>
 										<td class="column100 column2" data-column="column2">
@@ -276,16 +284,20 @@ session_start();
 										</td>
 										<td class="column100 column3" data-column="column3">
 											<?php  
-													if ($dossierinfo['spec']) {
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAU" AND doss ='.$getid.'');
-													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
-													}
-													else
-													{
+													if ($dossierinfo['spec'] != "poteau"  ) {
 														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
 													echo $etapeinfo['finEtape'];
+
+
+													}
+													else
+													{
+														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 													}	
 												?>
 											</td>

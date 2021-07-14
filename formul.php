@@ -22,6 +22,7 @@
             $numero=htmlspecialchars($numero);
             $fonction=htmlspecialchars($fonction);
             $numerolength = strlen($numero);
+            $equipe = htmlspecialchars($equipe);
 
           //VERIFICATION DE VALIDITE DE MAIL
             if(filter_var($email,FILTER_VALIDATE_EMAIL)){
@@ -38,8 +39,8 @@
                           if ($mdp == $mdp2) 
                           { 
                               //ENREGISTREMENT D'UN NOUVEAU MEMBRE
-                                $insertcollab = $bdd->prepare("INSERT INTO collaborateur(nomcollaborateur, emailcollaborateur, motdepasse, numerocollaborateur, fonctioncollaborateur,service) VALUES (?,?,?,?,?,?)");
-                                $insertcollab->execute(array($nom, $email, $mdp, $numero, $fonction, $service));
+                                $insertcollab = $bdd->prepare("INSERT INTO collaborateur(nomcollaborateur, emailcollaborateur, motdepasse, numerocollaborateur, fonctioncollaborateur,service, equipe) VALUES (?,?,?,?,?,?,?)");
+                                $insertcollab->execute(array($nom, $email, $mdp, $numero, $fonction, $service,$equipe));
                                 $suc = "Nouveau compte collaborateur crée!!!!";
                                 header("location: index.php");  
                           }
@@ -158,6 +159,15 @@ input{
       <input type="password" size="40" name="mdp2" placeholder="confirmez votre mot de passe">
       <input type="text"  size="40" name="numero" placeholder="numero">
       <input type="text" size="40" name="fonction" placeholder="fonction">
+      <div> 
+          <span>
+            <select name="equipe" id="equipe">
+              <option value="0">choisir l'equipe</option>
+              <option value="1">EQUIPE A</option>
+              <option value="1">EQUIPE B</option>
+            </select>
+          </span>
+      </div>
       <div> 
           <span>
             <select name="service" id="service">

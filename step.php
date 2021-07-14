@@ -18,46 +18,54 @@ session_start();
 	        			extract($_POST);
         	
         	
-        	$ETUDE =$_POST['ETUDE'];
-        	$CABLAGE =$_POST['CABLAGE'];
-        	$RESSOURCES =$_POST['RESSOURCES'];
-        	$POTEAUX =$_POST['POTEAUX'];
-        	$RACCORDEMENT =$_POST['RACCORDEMENT'];
-        	$CONFIGURATION =$_POST['CONFIGURATION'];
-        	$RECU =$_POST['RECU'];
+        	
 
         	
 
-        		if (!empty($ETUDE)) {
-        			$insertetape =$bdd->prepare("INSERT INTO etape(nomEtape,doss) VALUES (?,?)");
-        			$insertetape ->execute(array($ETUDE,$getid));
+        		if (!empty($_POST['etape1'])) {
+        			$insertetape =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape ->execute(array($_POST['etape1'],$_POST['netape1'],$getid));
         		}
-        		if (!empty($RESSOURCES)) {
-        			$insertre =$bdd->prepare("INSERT INTO etape(nomEtape,doss) VALUES (?,?)");
-		        	$insertre ->execute(array($RESSOURCES,$getid));
+        		if (!empty($_POST['etape2'])) {
+        			$insertetape2 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape2 ->execute(array($_POST['etape2'],$_POST['netape2'],$getid));
         		}
-        		if (!empty($POTEAUX)) {
-        			$insertpo =$bdd->prepare("INSERT INTO etape(nomEtape,doss) VALUES (?,?)");
-        			$insertpo ->execute(array($POTEAUX,$getid));
-        			$insertspec = $bdd->query('UPDATE dossier  SET spec = 3 WHERE idDossier ='.$getid.'');
+        		if (!empty($_POST['etape3'])) {
+        			$insertetape3 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape3 ->execute(array($_POST['etape3'],$_POST['netape3'],$getid));
         		}
-        		if (!empty($CABLAGE)) {
-        			$insertca =$bdd->prepare("INSERT INTO etape(nomEtape,doss) VALUES (?,?)");
-		        	$insertca ->execute(array($CABLAGE,$getid));
+        		if (!empty($_POST['etape4'])) {
+        			$insertetape4 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape4 ->execute(array($_POST['etape4'],$_POST['netape4'],$getid));
         		}
-        		if (!empty($RACCORDEMENT)) {
-        			$insertra =$bdd->prepare("INSERT INTO etape(nomEtape,doss) VALUES (?,?)");
-		        	$insertra ->execute(array($RACCORDEMENT,$getid));
+        		if (!empty($_POST['etape5'])) {
+        			$insertetape5 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape5 ->execute(array($_POST['etape5'],$_POST['netape5'],$getid));
         		}
-        		if (!empty($CONFIGURATION)) {
-        			$insertcon =$bdd->prepare("INSERT INTO etape(nomEtape,doss) VALUES (?,?)");
-        			$insertcon ->execute(array($CONFIGURATION,$getid));
+        		if (!empty($_POST['etape6'])) {
+        			$insertetape6 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape6 ->execute(array($_POST['etape6'],$_POST['netape6'],$getid));
         		}
-        		if (!empty($RECU)) {
-        			$insertrec =$bdd->prepare("INSERT INTO etape(nomEtape,doss) VALUES (?,?)");
-		        	$insertrec ->execute(array($RECU,$getid));
+        		if (!empty($_POST['etape7'])) {
+        			$insertetape7 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape7 ->execute(array($_POST['etape7'],$_POST['netape7'],$getid));
         		}
-
+        		if (!empty($_POST['etape8'])) {
+        			$insertetape8 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape8 ->execute(array($_POST['etape8'],$_POST['netape8'],$getid));
+        		}
+        		if (!empty($_POST['etape9'])) {
+        			$insertetape9 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape9 ->execute(array($_POST['etape9'],$_POST['netape9'],$getid));
+        		}
+        		if (!empty($_POST['etape10'])) {
+        			$insertetape10 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape10 ->execute(array($_POST['etape10'],$_POST['netape10'],$getid));
+        		}
+        		if (!empty($_POST['etape11'])) {
+        			$insertetape11 =$bdd->prepare("INSERT INTO etape(nomEtape,ordre,doss) VALUES (?,?,?)");
+        			$insertetape11->execute(array($_POST['etape11'],$_POST['netape11'],$getid));
+        		}
 		        	
 
 		        	
@@ -135,62 +143,97 @@ session_start();
 							<table data-vertable="ver1">
 									<thead>
 										<tr class="row100 head">
-											<th class="column100 column1" data-column="column1">REFERENCE DU DOSSIER</th>
+											<th class="column100 column1" data-column="column1">ETAPE DU DOSSIER</th>
+											<th colspan="2">N °<?php echo $getid ?></th>
 										</tr>
 									</thead>
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1"><label for="dossier">IDENTIFIANT DU DOSSIER</label></td>
-										<td class="column100 column2" data-column="column2">
-											<?php echo $getid ?>
-										</td>
+										<td class="column100 column1" data-column="column1"></td>
+										<td class="column100 column2" data-column="column2">INTITULE</td>
+										<td class="column100 column3" data-column="column3">ORDRE</td>
 									</tr>
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1"><label for="etape1">ETAPE 1</label></td>
 										<td class="column100 column2" data-column="column2" size ="15">
-											<input type="text" name="ETUDE" id="etape1" value ="ETUDE"  />
+											<input type="text" name="etape1" id="etape1"/>
 										</td>
+										<td><input type="number"  name="netape1" min="1" max="12" style="font-size:20px;"></td>
 									</tr>
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1"><label for="etape2">ETAPE 2</label></td>
 										<td class="column100 column2" data-column="column2">
-											<input type="text" name="RESSOURCES" id="etape2" value ="RECEPTION DE RESSOURCES" size ="35"/>
+											<input type="text" name="etape2" id="etape2"  size ="35"/>
 										</td>
+										<td><input type="number"  name="netape2" min="1" max="12" style="font-size:20px;"></td>
 									</tr>
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1"><label for="etape3">ETAPE 3</label></td>
 										<td class="column100 column2" data-column="column2">
-											<input type="text" name="POTEAUX" id="etape3" value ="IMPLANTATION DE POTEAUX" size ="35"/>
+											<input type="text" name="etape3" id="etape3"  size ="35"/>
 										</td>
+										<td><input type="number"  name="netape3" min="1" max="12" style="font-size:20px;"></td>
 									</tr>
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1"><label for="etape4">ETAPE 4</label></td>
 										<td class="column100 column2" data-column="column2">
-											<input type="text" name="CABLAGE" id="etape4" value ="CABLAGE" size ="35"/>
+											<input type="text" name="etape4" id="etape4"  size ="35"/>
 										</td>
+										<td><input type="number"  name="netape4" min="1" max="12" style="font-size:20px;"></td>
 									</tr>
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1"><label for="etape4">ETAPE 5</label></td>
+										<td class="column100 column1" data-column="column1"><label for="etape5">ETAPE 5</label></td>
 										<td class="column100 column2" data-column="column2">
-											<input type="text" name="RACCORDEMENT" id="etape5" value ="RACCORDEMENT" size ="35"/>
+											<input type="text" name="etape5" id="etape5"  size ="35"/>
 										</td>
+										<td><input type="number"  name="netape5" min="1" max="12" style="font-size:20px;"></td>
 									</tr>
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1"><label for="etape5">ETAPE 6</label></td>
+										<td class="column100 column1" data-column="column1"><label for="etape6">ETAPE 6</label></td>
 										<td class="column100 column2" data-column="column2">
-											<input type="text" name="CONFIGURATION" id="etape6" value ="CONFIGURATION" size ="35"/>
+											<input type="text" name="etape6" id="etape6"  size ="35"/>
 										</td>
+										<td><input type="number"  name="netape6" min="1" max="12" style="font-size:20px;"></td>
 									</tr>
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1"><label for="etape7">ETAPE 7</label></td>
 										<td class="column100 column2" data-column="column2">
-											<input type="text" name="RECU" id="etape7" value ="RECU" size ="35"/>
+											<input type="text" name="etape7" id="etape7"  size ="35"/>
 										</td>
+										<td><input type="number"  name="netape7" min="1" max="12" style="font-size:20px;"></td>
+									</tr>
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1"><label for="etape8">ETAPE 8</label></td>
+										<td class="column100 column2" data-column="column2">
+											<input type="text" name="etape8" id="etape8"  size ="35"/>
+										</td>
+										<td><input type="number"  name="netape8" min="1" max="12" style="font-size:20px;"></td>
+									</tr>
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1"><label for="etape9">ETAPE 9</label></td>
+										<td class="column100 column2" data-column="column2">
+											<input type="text" name="etape9" id="etape9"  size ="35"/>
+										</td>
+										<td><input type="number"  name="netape9" min="1" max="12" style="font-size:20px;"></td>
+									</tr>
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1"><label for="etape10">ETAPE 10</label></td>
+										<td class="column100 column2" data-column="column2">
+											<input type="text" name="etape10" id="etape10"  size ="35"/>
+										</td>
+										<td><input type="number"  name="netape10" min="1" max="12" style="font-size:20px;"></td>
+									</tr>
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1"><label for="etape11">ETAPE 11</label></td>
+										<td class="column100 column2" data-column="column2">
+											<input type="text" name="etape11" id="etape11"  size ="35"/>
+										</td>
+										<td><input type="number"  name="netape11" min="1" max="12" style="font-size:20px;"></td>
 									</tr>
 							</table>
 							
 								<div style="text-align: center;">
 									<br />
-									<input type="submit" class="btn btn-success" value="Connexion " name="etape" class="box-button">
+									<input type="submit" class="btn btn-success" value="valider etape" name="etape" class="box-button">
 								</div>
 
 

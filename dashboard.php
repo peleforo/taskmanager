@@ -99,7 +99,7 @@ session_start();
 								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 								<?php
 											     
-										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 1 ');
+										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutDossier = 1 ');
 						                $nbredossier = $reqetat->rowcount();
 
 							            echo '<span>' . $nbredossier .  '</span>' ;
@@ -110,7 +110,7 @@ session_start();
 								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 								<?php
 											     
-										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 2 ');
+										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutDossier = 2 ');
 						                $nbredossier = $reqetat->rowcount();
 
 							            echo '<span>' . $nbredossier .  '</span>' ;
@@ -120,7 +120,7 @@ session_start();
 								<!--AFFICHAGE DU NOMBRE DE DOSSIER-->
 								<?php
 											     
-										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 3 ');
+										$reqetat = $bdd->query('SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutDossier = 3 ');
 						                $nbredossier = $reqetat->rowcount();
 
 							            echo '<span>' . $nbredossier .  '</span>' ;
@@ -153,7 +153,7 @@ session_start();
 							<div class="tab-content active" id="encours"> 
 								<?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 1 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutDossier = 1 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -169,7 +169,7 @@ session_start();
 							<div class="tab-content" id="enattente"> 
 								 <?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 2 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutDossier = 2 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -185,7 +185,7 @@ session_start();
 							<div class="tab-content" id="reporte"> 
 								<?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 3 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutDossier = 3 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -201,7 +201,7 @@ session_start();
 							<div class="tab-content" id="valide"> 
 								<?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 4 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutDossier = 4 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 
@@ -217,7 +217,7 @@ session_start();
 							<div class="tab-content" id="perdu"> 
 							 	<?php
 									     
-									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutdossier = 5 ");
+									$reqetat = $bdd->query("SELECT * FROM dossier WHERE debutDossier = CURDATE() AND statutDossier = 5 ");
 					                		
 					                while ($donnees = $reqetat->fetch()) {
 

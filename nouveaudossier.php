@@ -22,19 +22,28 @@
 	        $commune=htmlspecialchars($commune);
 	        $zone=htmlspecialchars($zone);
 	        $descriptif=htmlspecialchars($descriptif);
+	        $equipe = htmlspecialchars($equipe);
+	        $lien ='afficheDossier.php?idDossier='.$_POST['iddossier'];
 	      
 	        
 	      //VERIFICATION DU REMPLISSAGE DES CHAMPS
-	        if ( !empty($iddossier) && !empty($projet) && !empty($nomclient) && !empty($numclient) && !empty($typemaison) && !empty($villedistrict) && !empty($commune) && !empty($zone)) {
+	        if ( !empty($iddossier) && !empty($projet) && !empty($nomclient) && !empty($numclient)) {
 	          	$reqdossier = $bdd->prepare("SELECT * FROM dossier WHERE iddossier = ?");
                 $reqdossier -> execute(array($iddossier));
                 $dossierexist = $reqdossier->rowcount();
+                $of = array("ETUDE","RECEPTION DE RESSOURCES","IMPLANTATION DE POTEAU","RACCORDEMENT","CONFIGURATION","RECU");
+		            $ob = array("ETUDE","RECEPTION DE RESSOURCES","RACCORDEMENT","CONFIGURATION","RECU");
 
 		        if ($dossierexist == 0) {
 		        	//ENREGISTREMENT DES DONNES DANS LA BASE
-		        	 $insertdossier = $bdd->prepare("INSERT INTO dossier(iddossier,projetconcerne,nomclient,numeroclient,emailclient,typedemaison,villedistrict,commune,zone,descriptif) VALUES (?,?,?,?,?,?,?,?,?,?)");
-		             $insertdossier->execute(array($iddossier, $projet, $nomclient, $numclient, $emailclient, $typemaison, $villedistrict, $commune, $zone, $descriptif));
+		        	 $insertdossier = $bdd->prepare("INSERT INTO dossier(iddossier,projetconcerne,nomclient,numeroclient,emailclient,typedemaison,villedistrict,commune,zone,descriptif,equipe) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+		             $insertdossier->execute(array($iddossier, $projet, $nomclient, $numclient, $emailclient, $typemaison, $villedistrict, $commune, $zone, $descriptif, $equipe));
 		             $suc = "Nouveau dossier crée!!!!";
+		             header('location:etape.php?idDossier='.$_POST['iddossier']);
+
+		         
+		           
+
 		        }
 		        else
 		        	{
@@ -73,6 +82,9 @@
 
 				<h1>FTTH</h1>                            
 			  <ul class="nav nav-tabs flex-column">
+			  	<li>
+						<a class="nav-link" href="dashboard.php" style="color: black;">MA JOURNEE</a>
+					</li>
 				 <li class="nav-item">
 				 	<a class="nav-link" href="interface utilisateur OBOX.php" style="color: black;">OBOX</a>
 				 </li>
@@ -210,6 +222,22 @@
 									<input type="text" name="zone" id="zone" />
 								</td>
 								
+							</tr>
+							<tr>
+								<td style="font-size: 30px; padding-right: 10px;text-align: right;">
+									<label for="projet">choisir equipe</label>
+								</td>
+								<td>
+									<div> 
+          <span>
+            <select name="equipe" id="equipe">
+              <option value="0">--</option>
+              <option value="1">EQUIPE A</option>
+              <option value="1">EQUIPE B</option>
+            </select>
+          </span>
+      </div>
+								</td>
 							</tr>
 						</table>
 

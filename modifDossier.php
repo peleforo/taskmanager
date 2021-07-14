@@ -11,6 +11,7 @@ session_start();
 	        if (isset($_GET['idDossier'])) {
 	        	$getid = intval($_GET['idDossier']);
 
+
 	        	$suc = 'bon';
 
 	        		
@@ -25,14 +26,15 @@ session_start();
 				
 	        	
 	        		
-	        		if (isset($_POST['modif'])) {
+	        	if (isset($_POST['modif'])) {
 	        			extract($_POST);
 	        		$suc ="bonbon";
 
 	        		
 	        			
 	        		//references
-	        		$newdossier = htmlspecialchars($_POST['newiddossier']);
+	        		
+	        		$newdossier= htmlspecialchars($_POST['newiddossier'])	;
 					$newnom = htmlspecialchars($_POST['newnom']);
 	        		$newcommune = htmlspecialchars($_POST['newcommune']);
 	        		$newvd = htmlspecialchars($_POST['newvd']);
@@ -53,12 +55,15 @@ session_start();
 	        		$raccordement = htmlspecialchars($_POST['raccordement']);
 	        		$configuration = htmlspecialchars($_POST['configuration']);
 	        		$recu = htmlspecialchars($_POST['recu']);
-	        		$poteau = htmlspecialchars($_POST['poteau']);
-	        		$progression = array();
+	        		if (isset($_POST['poteau'])) {
+	        			$poteau = htmlspecialchars($_POST['poteau']);
+	        		}
+	        		
+
 
 	        		//var_dump($newintervention, $newcloture);
 					//modif references
-		       		$modifref = $bdd ->prepare('UPDATE dossier SET idDossier = :idDossier , nomClient = :nomClient , commune = :commune ,villeDistrict = :villeDistrict ,zone = :zone ,numeroClient = :numeroClient , emailClient = :emailClient , typeDeMaison = :typeDeMaison ,projetConcerne = :projetConcerne WHERE idDossier = :oldId');
+		       		$modifref = $bdd ->prepare('UPDATE dossier SET idDossier = :idDossier , nomClient = :nomClient , commune = :commune ,villeDistrict = :villeDistrict ,zone = :zone ,numeroClient = :numeroClient , emailClient = :emailClient , typeDeMaison = :typeDeMaison  WHERE idDossier = :oldId');
 	        		$modifref ->execute(array(
 	        			'idDossier' => $newiddossier,
 	        			'nomClient' => $newnom,
@@ -68,138 +73,225 @@ session_start();
 	        			'numeroClient' => $newnumclient,
 	        			'emailClient' => $newemail,
 	        			'typeDeMaison' => $newtypemaison,
-	        			'projetConcerne' => $newprojet,
+	        			
 	        			'oldId' => $_GET['idDossier']));
+
 			   		
-	        		/*//modif plan*/
-		       		$modifplan = $bdd ->prepare('UPDATE dossier SET statutDossier = ? , debutDossier = ? , finDossier = ? WHERE idDossier = ?');
-	        		$modifplan ->execute(array($newetat, $newintervention, $newcloture, $_GET['idDossier']));
+	        		
 			   		
 
 			   		//modif descriptif
 		       		$modifplan = $bdd ->prepare('UPDATE dossier SET descriptif= ? WHERE idDossier = ?');
 	        		$modifplan ->execute(array($newdescriptif, $_GET['idDossier']));
 
+
+
+	        		if (isset($newetat)) {
+	        			/*//modif plan*/
+		       		$modifetat = $bdd ->prepare('UPDATE dossier SET statutDossier = ? WHERE idDossier = ?');
+	        		$modifetat ->execute(array($newetat, $newdossier));
+	        		}
+
+	        		if (isset($newintervention) && !empty($newintervention)) {
+	        			/*//modif plan*/
+		       		$modifinter = $bdd ->prepare('UPDATE dossier SET debutDossier = ? WHERE idDossier = ?');
+	        		$modifinter ->execute(array($newintervention, $_GET['idDossier']));
+	        		}
+	        		
+
+
+
+	        		if ($newcloture) {
+	        			/*//modif plan*/
+		       		$modifclo = $bdd ->prepare('UPDATE dossier SET  finDossier = ? WHERE idDossier = ?');
+	        		$modifclo ->execute(array($newcloture, $_GET['idDossier']));
+	        		}
+	        		
+
 	        		//modif etape
 	        			//modif etape etude
-	        			if (isset($etude)) {
-	        				$reqetude = $bdd ->prepare('SELECT nomEtape FROM etape WHERE doss = ? AND nomEtape = "ETUDE"');
-	        				$reqetude ->execute($_GET['idDossier']);
-	        				$etudeinfo = $reqetude->fetch();
-	        				if ($etudeinfo && $etudeinfo != $etude) {
+	        			if (isset($etude) ) {
+	        				$reqetude = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "ETUDE"');
+	        				$reqetude ->execute(array($getid));
+	        				$etudeinfo = $reqetude->fetch();        				
+	        				if (isset($_POST['etude']) && !empty($_POST['etude']) && $etudeinfo['statutEtape'] != $_POST['etude']) {
 	        					$modifetude = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "ETUDE"');
-							$modifetude ->execute(array($etude, $_GET['idDossier']));
+								$modifetude ->execute(array($etude, $_GET['idDossier']));
+								if ($_POST['etude'] != 3) {
+									$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "ETUDE"');
+									$modiffinetude ->execute(array($_GET['idDossier']));	
+		        				}
+		        				elseif ($_POST['etude'] = 3)
+		        				{
+		        					$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape = NOW()  WHERE doss = ? AND nomEtape = "ETUDE"');
+									$modiffinetude ->execute(array($_GET['idDossier']));
+
+		        				}
 	        				}
-							
 	        			}
 	        			//modif etape ressources
 	        			if (isset($ressources)) {
 	        				$reqress = $bdd ->prepare('SELECT nomEtape FROM etape WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
-	        				$reqress ->execute($_GET['idDossier']);
+	        				$reqress ->execute(array($_GET['idDossier']));
 	        				$ressinfo = $reqress->fetch();
-		        			if (isset($ressinfo) && $ressinfo != $ressources) {
+		        			if (isset($_POST['ressources']) && !empty($_POST['ressources']) && $ressinfo['statutEtape'] != $_POST['ressources']) {
 		        				
-								$modifress = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
-								$modifress ->execute(array($ressources, $_GET['idDossier']));
+									$modifress = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
+									$modifress ->execute(array($ressources, $_GET['idDossier']));
+								
+								if ($_POST['ressources'] != 3) {
+
+									$modiffinress = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
+									$modiffinress ->execute(array($_GET['idDossier']));
+								}
+								elseif ($_POST['ressources'] = 3) {
+									$modiffinress = $bdd ->prepare('UPDATE etape SET finEtape= NOW() WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
+									$modiffinress ->execute(array($_GET['idDossier']));
+								}
 		        			}	
 		        		}
 	        			//modif etape poteau
 	        			if (isset($poteau)) {
-		        				$reqpo = $bdd ->prepare('SELECT nomEtape FROM etape WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAU"');
-		        				$reqpo ->execute($_GET['idDossier']);
+		        				$reqpo = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAUX"');
+		        				$reqpo ->execute(array($_GET['idDossier']));
 		        				$poinfo = $reqpo->fetch();
-		        			if (isset($poinfo) && $poinfo = $poteau) {
+		        			if (isset($_POST['poteau']) && !empty($_POST['poteau']) && $poinfo['statutEtape'] != $_POST['poteau']) {
 		        				
-								$modifpo = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAU"');
+								$modifpo = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAUX"');
 								$modifpo ->execute(array($poteau, $_GET['idDossier']));
+
+								if ($_POST['poteau'] != 3) {
+
+									$modiffinress = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAUX"');
+									$modiffinress ->execute(array($_GET['idDossier']));
+								}
+								elseif ($_POST['poteau'] = 3) {
+									$modiffinress = $bdd ->prepare('UPDATE etape SET finEtape= NOW() WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAUX"');
+									$modiffinress ->execute(array($_GET['idDossier']));
+								}
 		        			}
 		        		}
 	        			//modif etape cablage
 	        			if (isset($cablage)) {
-	        					$reqcabl = $bdd ->prepare('SELECT nomEtape FROM etape WHERE doss = ? AND nomEtape = "CABLAGE"');
-		        				$reqcabl ->execute($_GET['idDossier']);
-		        				$cablinfo = $reqpo->fetch();
-		        			if (isset($cablinfo) && $cablinfo = $cablage) {
+	        					$reqcabl = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "CABLAGE"');
+		        				$reqcabl ->execute(array($_GET['idDossier']));
+		        				$cablinfo = $reqcabl->fetch();
+		        			if (isset($_POST['cablage']) && !empty($_POST['cablage']) && $cablinfo['statutEtape'] != $_POST['cablage']) {
 	        				
 								$modifcabl = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "CABLAGE"');
 								$modifcabl ->execute(array($cablage, $_GET['idDossier']));
+
+								if ($_POST['cablage'] != 3) {
+
+									$modiffincabl = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "CABLAGE"');
+									$modiffincabl ->execute(array($_GET['idDossier']));
+								}
+								elseif ($_POST['cablage'] = 3) {
+									$modiffincabl = $bdd ->prepare('UPDATE etape SET finEtape= NOW() WHERE doss = ? AND nomEtape = "CABLAGE"');
+									$modiffincabl ->execute(array($_GET['idDossier']));
+								}
 		        			}
 		        		}
 	        			//modif etape raccordement
 	        			if (isset($raccordement)) {
 	        					
-	        					$reqra = $bdd ->prepare('SELECT nomEtape FROM etape WHERE doss = ? AND nomEtape = "RACCORDEMENT"');
-		        				$reqra ->execute($_GET['idDossier']);
+	        					$reqra = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "RACCORDEMENT"');
+		        				$reqra ->execute(array($_GET['idDossier']));
 		        				$racinfo = $reqra->fetch();
-		        			if (isset($racinfo) && $racinfo = $raccordement) {
+		        			if (isset($_POST['raccordement']) && !empty($_POST['raccordement']) && $racinfo['statutEtape'] != $_POST['raccordement']) {
 
 								$modifra = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "RACCORDEMENT"');
 								$modifra ->execute(array($raccordement, $_GET['idDossier']));
+								if ($_POST['raccordement'] != 3) {
+
+									$modiffinrac = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "RACCORDEMENT"');
+									$modiffinrac ->execute(array($_GET['idDossier']));
+								}
+								elseif ($_POST['raccordement'] = 3) {
+									$modiffinrac = $bdd ->prepare('UPDATE etape SET finEtape= NOW() WHERE doss = ? AND nomEtape = "RACCORDEMENT"');
+									$modiffinrac ->execute(array($_GET['idDossier']));
+								}
 	        				}
 	        			}
 	        			//modif etape configuration
 	        			if (isset($configuration)) {
 	        				
-							$reqconf = $bdd ->prepare('SELECT nomEtape FROM etape WHERE doss = ? AND nomEtape = "CONFIGURATION"');
-		        				$reqconf ->execute($_GET['idDossier']);
+							$reqconf = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "CONFIGURATION"');
+		        				$reqconf ->execute(array($_GET['idDossier']));
 		        				$confinfo = $reqconf->fetch();
-		        			if (isset($confinfo) && $confinfo = $configuration) {
+		        			if (isset($_POST['configuration']) && !empty($_POST['configuration']) && $confinfo['statutEtape'] != $_POST['configuration']) {
 								$modifconf = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "CONFIGURATION"');
 								$modifconf ->execute(array($configuration, $_GET['idDossier']));
+
+								if ($_POST['configuration'] != 3) {
+
+									$modiffinconf = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "CONFIGURATION"');
+									$modiffinconf ->execute(array($_GET['idDossier']));
+								}
+								elseif ($_POST['configuration'] = 3) {
+									$modiffinconf = $bdd ->prepare('UPDATE etape SET finEtape= NOW() WHERE doss = ? AND nomEtape = "CONFIGURATION"');
+									$modiffinconf ->execute(array($_GET['idDossier']));
+								}
 	        				}
 	        			}
 	        			//modif etape recu
 	        			if (isset($recu)) {
 		        				$reqrecu = $bdd ->prepare('SELECT nomEtape FROM etape WHERE doss = ? AND nomEtape = "RECU"');
-			        				$reqrecu ->execute($_GET['idDossier']);
+			        				$reqrecu ->execute(array($_GET['idDossier']));
 			        				$recuinfo = $reqrecu->fetch();
-			        			if (isset($recuinfo) && $recuinfo = $recu) {
+			        			if (isset($_POST['recu']) && !empty($_POST['recu']) && $recuinfo['statutEtape'] != $_POST['recu']) {
 		        				
 								$modifrecu = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "RECU"');
 								$modifrecu ->execute(array($recu, $_GET['idDossier']));
+
+								if ($_POST['recu'] != 3) {
+
+									$modiffinrecu = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "RECU"');
+									$modiffinrecu ->execute(array($_GET['idDossier']));
+								}
+								elseif ($_POST['recu'] = 3) {
+									$modiffinrecu = $bdd ->prepare('UPDATE etape SET finEtape= NOW() WHERE doss = ? AND nomEtape = "RECU"');
+									$modiffinrecu ->execute(array($_GET['idDossier']));
+								}
 		        			}
 		        		}
+
+		        		if (isset($projet) && !empty($projet) && $projet != $dossierinfo['projetConcerne']) {
+		        			$modifref = $bdd ->prepare('UPDATE dossier SET projetConcerne = :projetConcerne WHERE idDossier = :oldId');
+	        		$modifref ->execute(array(
+	        			'projetConcerne' => $newprojet,
+	        			'oldId' => $_GET['idDossier']));
 	        		
+		        		}
+		        		if (isset($_POST['spec']) && !empty($_POST['spec'])  && $dossierinfo['spec'] != $_POST['spec']) {
+		        			
+		        			$modifspec = $bdd ->prepare('UPDATE dossier SET spec = ? WHERE idDossier = ?');
+	        				$modifspec ->execute(array($_POST['spec'], $_GET['idDossier']));
+		        			}		        		
 
 			   		
 			   		
 			   		header('location:afficheDossier.php?idDossier='.$newdossier);   
 	        		
 
-	        		}
-	        		else
-	        		{
-	        			$suc ='pas de form';
-	        		}
-	        				        		
-
-	        		
-
-	        	
-	   
+	        	}
+	        	else
+	        	{
+	        		$suc ='pas de form';
+	        	}	   
 	        }
 	        else
 	        {
 	        	header('location:dashboard.php');
 	        }
-
-         
-	    
-
+	        
 	 } catch (PDOException $e) {
      echo "Erreur :". $e->getMessage();
 	 }
 ?>
 <?php
 
-/*$newdossier = htmlspecialchars($_POST['newiddossier']);
-	        		$newnomclient = htmlspecialchars($_POST['newnomclient']);
-	        		$newvilledistrict = htmlspecialchars($_POST['newvilledistrict']);
-	        		$newcommnue = htmlspecialchars($_POST['newcommnue']);
-	        		$newzone = htmlspecialchars($_POST['newzone']);
-	        		$newnumclient = htmlspecialchars($_POST['newnumclient']);
-	        		$newemailclient = htmlspecialchars($_POST['newemailclient']);
-	        		$newtypemaison = htmlspecialchars($_POST['newtypemaison']);*/
+
 
 	if (isset($_SESSION['idCollaborateur'])) {
 		// code...
@@ -230,7 +322,9 @@ session_start();
 </head>
 <body style="background-color: #f1f1f1;">
 <?php
-	//var_dump($_POST);
+	var_dump($dossierinfo);
+
+	var_dump($_POST);
 ?>
 	
 	<form action="" name="modif" method="POST" class="container-fluid">
@@ -329,6 +423,17 @@ session_start();
 										    </select>
 										</td>
 									</tr>
+									<tr class="row100">
+											<td class="column100 column1" data-column="column1">SPECIFICATION DU DOSSIER</td>
+											<td class="column100 column2" data-column="column2">
+												<select name="spec" id="spec" required="">									
+													<option value="0">--</option>
+											        <option value="1">STANDARD</option>
+											        <option value="2">PARABOLE</option>
+													<option value="3">POTEAU</option>
+												</select>
+											</td>
+									</tr>
 							</table>
 						</div>
 					</div>
@@ -341,8 +446,7 @@ session_start();
 										<th class="column100 column1" data-column="column1">PROGRESSION DU DOSSIER</th>
 										<th class="column100 column1" data-column="column1">STATUT DU DOSSIER</th>
 										<th class="column100 column1" data-column="column1">DATE DE DEBUT DE L'ETAPE</th>
-										<th class="column100 column1" data-column="column1">DATE DE FIN DE L'ETAPE</th>
-										
+										<th class="column100 column1" data-column="column1">DATE DE FIN DE L'ETAPE</th>				
 									</tr>
 								</thead>
 								<tbody>
@@ -351,8 +455,9 @@ session_start();
 											<td class="column100 column2" data-column="column2">
 												<select name="etude" id="etude" required="">									
 													<option value="0"> </option>
-											        <option value="1">en cours</option>
-											        <option value="2">validé</option>
+											        <option value="1">pas encore commencer</option>
+											        <option value="2">en cours</option>
+													<option value="3">validé</option>
 												</select>
 											</td>
 											<td class="column100 column3" data-column="column3">
@@ -374,8 +479,9 @@ session_start();
 										<td class="column100 column2" data-column="column2">
 											<select name="ressources" id="ressources" required="">
 												<option value="0"> </option>
-										        <option value="1">en cours</option>
-										        <option value="2">validé</option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
 										    </select>
 										</td>
 										<td class="column100 column3" data-column="column3">
@@ -396,52 +502,55 @@ session_start();
 											</td>
 									</tr>
 									
-									<tr class="row100">
-										<td class="column100 column1" data-column="column1">IMPLANTATION DE POTEAU</td>
-										<td class="column100 column2" data-column="column2">
-											<select name="poteau" id="poteau" required="">									
-												<option value="0"> </option>
-										        <option value="1">en cours</option>
-												<option value="2">validé</option>
-										    </select>
-										</td>
-										<td class="column100 column3" data-column="column3">
-											<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
+									<?php  
+													if ($dossierinfo['spec'] != "poteau") {
+														
+												}
+												else
+												{
+													$reqostep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
+													$oetapeinfo = $reqostep->fetch();
+														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													
 												?>
-											</td>
-											<td class="column100 column4" data-column="column4">
-												<?php  
-													if ($dossierinfo['spec']) {
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAU" AND doss ='.$getid.'');
-													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
-													}
-													else
-													{
-														echo'--';
-													}	
-												?>
+												
+												<tr class="row100">
+													<td class="column100 column1" data-column="column1">IMPLANTATION DE POTEAU</td>
+													<td class="column100 column2" data-column="column2">
+														<select name="poteau " id="poteau" required="">								
+															<option value="0"> </option>
+													        <option value="1">pas encore commencer</option>
+													        <option value="2">en cours</option>
+															<option value="3">validé</option>
+													    </select>
+													</td>
+													<td class="column100 column3" data-column="column3"><?php echo $oetapeinfo['finEtape']; ?></td>
+													<td class="column100 column3" data-column="column3"><?php if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];} ?></td>
+												</tr>
+												<?php
+												}
+
+													?>
 					
-											</td>
-									</tr>						
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1">CABLAGE</td>
 										<td class="column100 column2" data-column="column2">
 											<select name="cablage" id="cablage" required="">									
 												<option value="0"> </option>
-										        <option value="1">en cours</option>
-												<option value="2">validé</option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
 										    </select>
 										</td>
 										<td class="column100 column3" data-column="column3">
 											<?php  
 													if ($dossierinfo['spec']) {
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAU" AND doss ='.$getid.'');
+														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];}
 													}
 													else
 													{
@@ -466,8 +575,9 @@ session_start();
 										<td class="column100 column2" data-column="column2">
 											<select name="raccordement" id="raccordement" required="">
 												<option value="0"> </option>
-										        <option value="1">en cours</option>
-										        <option value="2">validé</option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
 										    </select>
 										</td>
 										<td class="column100 column3" data-column="column3">
@@ -492,8 +602,9 @@ session_start();
 										<td class="column100 column2" data-column="column2">
 											<select name="configuration" id="configuration" required="">
 												<option value="0"> </option>
-										        <option value="1">en cours</option>
-										        <option value="2">validé</option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
 										    </select>
 										</td>
 										<td class="column100 column3" data-column="column3">
@@ -518,8 +629,9 @@ session_start();
 										<td class="column100 column2" data-column="column2">
 											<select name="recu" id="recu" required="">
 												<option value="0"> </option>
-										        <option value="1">en cours</option>
-										        <option value="2">validé</option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
 										    </select>
 										</td>
 										<td class="column100 column3" data-column="column3">
