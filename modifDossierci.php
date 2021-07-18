@@ -49,12 +49,16 @@ session_start();
 		       		$newcloture = htmlspecialchars($_POST['newcloture']);
 		       		$newdescriptif = htmlspecialchars($_POST['newdescriptif']);
 		       		//progression
-		       		$etude = htmlspecialchars($_POST['etude']);
-	        		$ressources = htmlspecialchars($_POST['ressources']);
+		       		$survey = htmlspecialchars($_POST['survey']);
+	        		$recep = htmlspecialchars($_POST['recep']);
+	        		$enlev = htmlspecialchars($_POST['enlev']);
+	        		$perfo = htmlspecialchars($_POST['perfo']);
 	        		$cablage = htmlspecialchars($_POST['cablage']);
 	        		$raccordement = htmlspecialchars($_POST['raccordement']);
-	        		$configuration = htmlspecialchars($_POST['configuration']);
-	        		$recu = htmlspecialchars($_POST['recu']);
+	        		$vti = htmlspecialchars($_POST['vti']);
+	        		$vtoci = htmlspecialchars($_POST['vtoci']);
+	        		$alignement = htmlspecialchars($_POST['alignement']);
+
 	        		if (isset($_POST['poteau'])) {
 	        			$poteau = htmlspecialchars($_POST['poteau']);
 	        		}
@@ -109,68 +113,127 @@ session_start();
 	        		
 
 	        		//modif etape
-	        			//modif etape etude
-	        			if (isset($etude) ) {
-	        				$reqetude = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "ETUDE"');
+	        			//modif etape SURVEY 
+	        			if (isset($survey) ) {
+	        				$reqetude = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "SURVEY"');
 	        				$reqetude ->execute(array($getid));
 	        				$etudeinfo = $reqetude->fetch();        				
-	        				if (isset($_POST['etude']) && !empty($_POST['etude']) && $etudeinfo['statutEtape'] != $_POST['etude']) {
-	        					$modifetude = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "ETUDE"');
+	        				if (isset($_POST['survey']) && !empty($_POST['survey']) && $etudeinfo['statutEtape'] != $_POST['survey']) {
+	        					$modifetude = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "SURVEY"');
 								$modifetude ->execute(array($etude, $_GET['idDossier']));
-								if ($_POST['etude'] != 3) {
-									$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "ETUDE"');
+								if ($_POST['survey'] != 3) {
+									$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "SURVEY"');
 									$modiffinetude ->execute(array($_GET['idDossier']));	
 		        				}
-		        				elseif ($_POST['etude'] = 3)
+		        				elseif ($_POST['survey'] = 3)
 		        				{
-		        					$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape = NOW()  WHERE doss = ? AND nomEtape = "ETUDE"');
+		        					$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape = NOW()  WHERE doss = ? AND nomEtape = "SURVEY "'); 
 									$modiffinetude ->execute(array($_GET['idDossier']));
 
 		        				}
 	        				}
 	        			}
-	        			//modif etape ressources
-	        			if (isset($ressources)) {
-	        				$reqress = $bdd ->prepare('SELECT nomEtape FROM etape WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
-	        				$reqress ->execute(array($_GET['idDossier']));
-	        				$ressinfo = $reqress->fetch();
-		        			if (isset($_POST['ressources']) && !empty($_POST['ressources']) && $ressinfo['statutEtape'] != $_POST['ressources']) {
-		        				
-									$modifress = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
-									$modifress ->execute(array($ressources, $_GET['idDossier']));
-								
-								if ($_POST['ressources'] != 3) {
+	        			//modif etape recep 
+	        			if (isset($recep) ) {
+	        				$reqetude = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "RECEPTION DOSSIER ET BOM"');
+	        				$reqetude ->execute(array($getid));
+	        				$etudeinfo = $reqetude->fetch();        				
+	        				if (isset($_POST['recep']) && !empty($_POST['recep']) && $etudeinfo['statutEtape'] != $_POST['recep']) {
+	        					$modifetude = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "RECEPTION DOSSIER ET BOM"');
+								$modifetude ->execute(array($etude, $_GET['idDossier']));
+								if ($_POST['recep'] != 3) {
+									$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "SURVEY"');
+									$modiffinetude ->execute(array($_GET['idDossier']));	
+		        				}
+		        				elseif ($_POST['recep'] = 3)
+		        				{
+		        					$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape = NOW()  WHERE doss = ? AND nomEtape = "RECEPTION DOSSIER ET BOM "'); 
+									$modiffinetude ->execute(array($_GET['idDossier']));
 
-									$modiffinress = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
-									$modiffinress ->execute(array($_GET['idDossier']));
-								}
-								elseif ($_POST['ressources'] = 3) {
-									$modiffinress = $bdd ->prepare('UPDATE etape SET finEtape= NOW() WHERE doss = ? AND nomEtape = "RECEPTION DE RESSOURCES"');
-									$modiffinress ->execute(array($_GET['idDossier']));
-								}
-		        			}	
-		        		}
-	        			//modif etape poteau
-	        			if (isset($poteau)) {
-		        				$reqpo = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAUX"');
-		        				$reqpo ->execute(array($_GET['idDossier']));
-		        				$poinfo = $reqpo->fetch();
-		        			if (isset($_POST['poteau']) && !empty($_POST['poteau']) && $poinfo['statutEtape'] != $_POST['poteau']) {
-		        				
-								$modifpo = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAUX"');
-								$modifpo ->execute(array($poteau, $_GET['idDossier']));
+		        				}
+	        				}
+	        			}
+	        			//modif etape enlev 
+	        			if (isset($enlev) ) {
+	        				$reqetude = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "ENLEVEMENT DE MAT"');
+	        				$reqetude ->execute(array($getid));
+	        				$etudeinfo = $reqetude->fetch();        				
+	        				if (isset($_POST['enlev']) && !empty($_POST['enlev']) && $etudeinfo['statutEtape'] != $_POST['enlev']) {
+	        					$modifetude = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "ENLEVEMENT DE MAT"');
+								$modifetude ->execute(array($etude, $_GET['idDossier']));
+								if ($_POST['enlev'] != 3) {
+									$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "ENLEVEMENT DE MAT"');
+									$modiffinetude ->execute(array($_GET['idDossier']));	
+		        				}
+		        				elseif ($_POST['enlev'] = 3)
+		        				{
+		        					$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape = NOW()  WHERE doss = ? AND nomEtape = "ENLEVEMENT DE MAT "'); 
+									$modiffinetude ->execute(array($_GET['idDossier']));
 
-								if ($_POST['poteau'] != 3) {
+		        				}
+	        				}
+	        			}
+	        			//modif etape perfo 
+	        			if (isset($perfo) ) {
+	        				$reqetude = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "PERFORATION IMMEUBLE ET POSE TUYAU"');
+	        				$reqetude ->execute(array($getid));
+	        				$etudeinfo = $reqetude->fetch();        				
+	        				if (isset($_POST['perfo']) && !empty($_POST['perfo']) && $etudeinfo['statutEtape'] != $_POST['perfo']) {
+	        					$modifetude = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "PERFORATION IMMEUBLE ET POSE TUYAU"');
+								$modifetude ->execute(array($etude, $_GET['idDossier']));
+								if ($_POST['perfo'] != 3) {
+									$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "PERFORATION IMMEUBLE ET POSE TUYAU"');
+									$modiffinetude ->execute(array($_GET['idDossier']));	
+		        				}
+		        				elseif ($_POST['perfo'] = 3)
+		        				{
+		        					$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape = NOW()  WHERE doss = ? AND nomEtape = "perfoPERFORATION IMMEUBLE ET POSE TUYAU "'); 
+									$modiffinetude ->execute(array($_GET['idDossier']));
 
-									$modiffinpo = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAUX"');
-									$modiffinpo ->execute(array($_GET['idDossier']));
-								}
-								elseif ($_POST['poteau'] = 3) {
-									$modiffinpo = $bdd ->prepare('UPDATE etape SET finEtape= NOW() WHERE doss = ? AND nomEtape = "IMPLANTATION DE POTEAUX"');
-									$modiffinpo ->execute(array($_GET['idDossier']));
-								}
-		        			}
-		        		}
+		        				}
+	        				}
+	        			}
+	        			//modif etape vti 
+	        			if (isset($vti) ) {
+	        				$reqetude = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "VTI"');
+	        				$reqetude ->execute(array($getid));
+	        				$etudeinfo = $reqetude->fetch();        				
+	        				if (isset($_POST['vti']) && !empty($_POST['vti']) && $etudeinfo['statutEtape'] != $_POST['vti']) {
+	        					$modifetude = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "VTI"');
+								$modifetude ->execute(array($etude, $_GET['idDossier']));
+								if ($_POST['vti'] != 3) {
+									$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "VTI"');
+									$modiffinetude ->execute(array($_GET['idDossier']));	
+		        				}
+		        				elseif ($_POST['vti'] = 3)
+		        				{
+		        					$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape = NOW()  WHERE doss = ? AND nomEtape = "VTI "'); 
+									$modiffinetude ->execute(array($_GET['idDossier']));
+
+		        				}
+	        				}
+	        			}
+	        			//modif etape VTOCI 
+	        			if (isset($vtoci) ) {
+	        				$reqetude = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "VTOCI"');
+	        				$reqetude ->execute(array($getid));
+	        				$etudeinfo = $reqetude->fetch();        				
+	        				if (isset($_POST['vtoci']) && !empty($_POST['vtoci']) && $etudeinfo['statutEtape'] != $_POST['vtoci']) {
+	        					$modifetude = $bdd ->prepare('UPDATE etape SET statutEtape= ? WHERE doss = ? AND nomEtape = "VTOCI"');
+								$modifetude ->execute(array($etude, $_GET['idDossier']));
+								if ($_POST['vtoci'] != 3) {
+									$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape= null WHERE doss = ? AND nomEtape = "VTOCI"');
+									$modiffinetude ->execute(array($_GET['idDossier']));	
+		        				}
+		        				elseif ($_POST['vtoci'] = 3)
+		        				{
+		        					$modiffinetude = $bdd ->prepare('UPDATE etape SET finEtape = NOW()  WHERE doss = ? AND nomEtape = "VTOCI "'); 
+									$modiffinetude ->execute(array($_GET['idDossier']));
+
+		        				}
+	        				}
+	        			}
+	        			
 	        			//modif etape cablage
 	        			if (isset($cablage)) {
 	        					$reqcabl = $bdd ->prepare('SELECT * FROM etape WHERE doss = ? AND nomEtape = "CABLAGE"');
@@ -437,42 +500,33 @@ session_start();
 										    </select>
 										</td>
 									</tr>
-									<tr class="row100">
-											<td class="column100 column1" data-column="column1">SPECIFICATION DU DOSSIER</td>
-											<td class="column100 column2" data-column="column2">
-												<select name="spec" id="spec" required="">									
-													<option value="0">--</option>
-											        <option value="1">STANDARD</option>
-											        <option value="2">PARABOLE</option>
-													<option value="3">POTEAU</option>
-												</select>
-											</td>
-									</tr>
 							</table>
 						</div>
 					</div>
 					<!--PROGRESSION-->
 					<div class="wrap-table100 col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					<div class="table100 ver1 m-b-110">
+
 							<table data-vertable="ver1">
 								<thead>
 									<tr class="row100 head">
 										<th class="column100 column1" data-column="column1">PROGRESSION DU DOSSIER</th>
 										<th class="column100 column1" data-column="column1">STATUT DU DOSSIER</th>
 										<th class="column100 column1" data-column="column1">DATE DE DEBUT DE L'ETAPE</th>
-										<th class="column100 column1" data-column="column1">DATE DE FIN DE L'ETAPE</th>				
+										<th class="column100 column1" data-column="column1">DATE DE FIN DE L'ETAPE</th>
+										
 									</tr>
 								</thead>
 								<tbody>
 									<tr class="row100">
-											<td class="column100 column1" data-column="column1">ETUDE</td>
+											<td class="column100 column1" data-column="column1">SURVEY</td>
 											<td class="column100 column2" data-column="column2">
-												<select name="etude" id="etude" required="">									
-													<option value="0"> </option>
-											        <option value="1">pas encore commencer</option>
-											        <option value="2">en cours</option>
-													<option value="3">validé</option>
-												</select>
+											<select name="survey"  required="">
+												<option value="0"> </option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
+										    </select>
 											</td>
 											<td class="column100 column3" data-column="column3">
 												<?php echo $dossierinfo['debutDossier'];?>
@@ -480,18 +534,21 @@ session_start();
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ETUDE" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="SURVEY" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
 												?>
 					
 											</td>
 									</tr>
 															
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1">RECEPTION DE RESSOURCES</td>
+										<td class="column100 column1" data-column="column1">RECEPTION DOSSIER ET BOM</td>
 										<td class="column100 column2" data-column="column2">
-											<select name="ressources" id="ressources" required="">
+											<select name="recep"  required="">
 												<option value="0"> </option>
 										        <option value="1">pas encore commencer</option>
 										        <option value="2">en cours</option>
@@ -500,58 +557,33 @@ session_start();
 										</td>
 										<td class="column100 column3" data-column="column3">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ETUDE" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="SURVEY" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
 												?>
 
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DOSSIER ET BOM" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
 												?>
 					
 											</td>
 									</tr>
 									
-									<?php  
-													if ($dossierinfo['spec'] != "poteau") {
-														
-												}
-												else
-												{
-													$reqostep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
-													$oetapeinfo = $reqostep->fetch();
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
-													$etapeinfo = $reqstep->fetch(); 
-													
-												?>
 												
-												<tr class="row100">
-													<td class="column100 column1" data-column="column1">IMPLANTATION DE POTEAU</td>
-													<td class="column100 column2" data-column="column2">
-														<select name="poteau " id="poteau" required="">								
-															<option value="0"> </option>
-													        <option value="1">pas encore commencer</option>
-													        <option value="2">en cours</option>
-															<option value="3">validé</option>
-													    </select>
-													</td>
-													<td class="column100 column3" data-column="column3"><?php echo $oetapeinfo['finEtape']; ?></td>
-													<td class="column100 column3" data-column="column3"><?php if (!empty($etapeinfo['finEtape'])) {
-															echo $etapeinfo['finEtape'];} ?></td>
-												</tr>
-												<?php
-												}
-
-													?>
-					
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1">CABLAGE</td>
+										<td class="column100 column1" data-column="column1">ENLEVEMENT DE MAT</td>
 										<td class="column100 column2" data-column="column2">
-											<select name="cablage" id="cablage" required="">									
+											<select name="enlev"  required="">
 												<option value="0"> </option>
 										        <option value="1">pas encore commencer</option>
 										        <option value="2">en cours</option>
@@ -560,18 +592,79 @@ session_start();
 										</td>
 										<td class="column100 column3" data-column="column3">
 											<?php  
-													if ($dossierinfo['spec'] == 3) {
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
-													$etapeinfo = $reqstep->fetch(); 
-															if (!empty($etapeinfo['finEtape'])) {
-															echo $etapeinfo['finEtape'];}
 													
-													}
-													else
-													{
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DOSSIER ET BOM" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}	
+												?>
+											</td>
+											<td class="column100 column4" data-column="column4">
+												<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ENLEVEMENT DE MAT" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];}
+														
+												?>
+					
+											</td>
+									</tr>
+
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1">PERFORATION IMMEUBLE ET POSE TUYAU</td>
+										<td class="column100 column2" data-column="column2">
+											<select name="perfo" required="">
+												<option value="0"> </option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
+										    </select>
+										</td>
+										<td class="column100 column3" data-column="column3">
+											<?php  
+													
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ENLEVEMENT DE MAT" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}	
+												?>
+											</td>
+											<td class="column100 column4" data-column="column4">
+												<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="PERFORATION IMMEUBLE ET POSE TUYAU" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
+												?>
+					
+											</td>
+									</tr>			
+									
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1">CABLAGE</td>
+										<td class="column100 column2" data-column="column2">
+											<select name="cablage" required="">
+												<option value="0"> </option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
+										    </select>
+										</td>
+										<td class="column100 column3" data-column="column3">
+											<?php  
+													
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="PERFORATION IMMEUBLE ET POSE TUYAU" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
 													}	
 												?>
 											</td>
@@ -579,7 +672,9 @@ session_start();
 												<?php  
 													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CABLAGE" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];}
+														
 												?>
 					
 											</td>
@@ -588,7 +683,7 @@ session_start();
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1">RACCORDEMENT</td>
 										<td class="column100 column2" data-column="column2">
-											<select name="raccordement" id="raccordement" required="">
+											<select name="raccordement"  required="">
 												<option value="0"> </option>
 										        <option value="1">pas encore commencer</option>
 										        <option value="2">en cours</option>
@@ -599,23 +694,29 @@ session_start();
 												<?php  
 													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CABLAGE" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
 												?>
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
 													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RACCORDEMENT" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
+														
 												?>
 					
 											</td>
 									</tr>
 															
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1">CONFIGURATION</td>
+										<td class="column100 column1" data-column="column1">VTI</td>
 										<td class="column100 column2" data-column="column2">
-											<select name="configuration" id="configuration" required="">
+											<select name="vti"  required="">
 												<option value="0"> </option>
 										        <option value="1">pas encore commencer</option>
 										        <option value="2">en cours</option>
@@ -626,23 +727,27 @@ session_start();
 											<?php  
 													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RACCORDEMENT" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 												?>	
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CONFIGURATION" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTI" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 												?>
 					
 											</td>
 									</tr>
 															
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1">RECU</td>
+										<td class="column100 column1" data-column="column1">VTOCI</td>
 										<td class="column100 column2" data-column="column2">
-											<select name="recu" id="recu" required="">
+											<select name="vtoci" required="">
 												<option value="0"> </option>
 										        <option value="1">pas encore commencer</option>
 										        <option value="2">en cours</option>
@@ -651,27 +756,63 @@ session_start();
 										</td>
 										<td class="column100 column3" data-column="column3">
 											<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CONFIGURATION" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTI" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 												?>
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECU" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTOCI" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
+												?>
+					
+											</td>
+									</tr>
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1">ALIGNEMENT</td>
+										<td class="column100 column2" data-column="column2">
+											<select name="alignement" required="">
+												<option value="0"> </option>
+										        <option value="1">pas encore commencer</option>
+										        <option value="2">en cours</option>
+												<option value="3">validé</option>
+										    </select>
+										</td>
+										<td class="column100 column3" data-column="column3">
+											<?php  
+														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTOCI" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}	
+												?>
+											</td>
+											<td class="column100 column4" data-column="column4">
+												<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CABLAGE" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 												?>
 					
 											</td>
 									</tr>
 								</tbody>
 							</table>
+							
 					</div>
 				</div>
 					<!--TABLE PLANIFICATION DE DOSSIER ET PJ-->
-					 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-12 col-lg-12" style="display: flex; flex-wrap: wrap; align-content: space-between;">
-					 	<div class="wrap-table100 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+					 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-6 col-lg-6" style="display: flex; flex-wrap: wrap; align-content: space-between;">
+					 	<div class="wrap-table100 col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<!--TABLE PLANIFICATION DE DOSSIER-->
 							<div class="table100 ver1 m-b-110" 	>
 								<table data-vertable="ver1">
@@ -709,66 +850,8 @@ session_start();
 							</div>	
 						</div>
 
-						<!--MATERIEL-->
-						 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-							<div class="table100 ver1 m-b-110">
-								<table data-vertable="ver1">
-										<thead>
-											<tr class="row100 head">
-												<th class="column100 column1" data-column="column1" colspan="2">MATERIEL UTILISE</th>
-												<td style="text-align: center;">
-													<?php
-														$lienr ='ressource.php?idDossier='. $dossierinfo['idDossier'];
-														echo '<div><a href="'.$lienr.'">
-														<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-															<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-														</svg>
-
-														</a></div>' ;
-													?>
-													
-												</td>
-											</tr>
-										</thead>
-										<tr class="row100">	
-												
-												<td class="column100 column1" data-column="column1">INTITULE</td>
-												<td class="column100 column2" data-column="column2">MODELE</td>
-												<td class="column100 column3" data-column="column3">QUANTITE</td>
-
-										</tr>
-										<?php  
-												$reqstep = $bdd -> query('SELECT * FROM ressource WHERE  dossierConcerne ='.$getid.'');
-												
-												while ($ressourceinfo = $reqstep->fetch()) {
-												 			
-													
-												  ?>
-												
-													<tr class="row100">
-														<td class="column100 column1" data-column="column1">
-															<input type="text" name="<?php?>" value="<?php if (!empty($ressourceinfo['nomRessource'])) {echo $ressourceinfo['nomRessource'];} ?>">
-															
-														</td>
-														<td class="column100 column2" data-column="column2"><?php if (!empty($ressourceinfo['modeleRessource'])) {echo $ressourceinfo['modeleRessource'];}?>
-															
-														</td>
-														<td class="column100 column3" data-column="column3"><?php if (!empty($ressourceinfo['qte'])) {echo $ressourceinfo['qte'];}?>
-															
-														</td>
-														
-											<?php
-													
-													
-												}
-
-											?>
-								</table>
-							</div>
-						</div>
-
 						<!--PIECE JOINTE-->
-						 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-6 col-lg-6">
+						 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-12 col-lg-12">
 							<div class="table100 ver1 m-b-110">
 								<table data-vertable="ver1">
 										<thead>
@@ -777,53 +860,46 @@ session_start();
 
 											</tr>
 										</thead>
-										<?php
-											$reqpj = $bdd ->query('SELECT * FROM fichier');
-        									$reqpj ->execute(array($getid));
-        									$pj = $reqpj ->fetch();
-										?>
 										<tr class="row100">
 											<td class="column100 column1" data-column="column1">
 												<?php
-													echo $pj['nomFichier'];
+													echo $dossierinfo['descriptif'];
 												?>
 											</td>
 											<td class="column100 column1" data-column="column1">
-												<?php echo '<a href="'.$pj['url'].'">telecharger '.$pj['nomFichier'].'</a>' ;?>
+												<?php echo $dossierinfo['descriptif'];?>
 											</td>
 										</tr>
 								</table>
 							</div>
 						 </div>	
 
-						<!--COMMENTAIRE-->
-						 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-6 col-lg-6">
-							<div class="table100 ver1 m-b-110">
-								<table data-vertable="ver1">
-										<thead>
-											<tr class="row100 head">
-												<th class="column100 column1" data-column="column1">COMMENTAIRE</th>
-											</tr>
-										</thead>
-										<tr class="row100">
-											<td class="column100 column1" data-column="column1">
-												<textarea id="descriptif" name="newdescriptif" style= "max-width:100%;" cols="150"><?php
-												echo $dossierinfo['descriptif'];
-											?></textarea>
-											</td>
-										</tr>
-								</table>
-							</div>
-						 </div>
-
-					 </div>	
-
+					 </div>			
 				
 				 </div>
-				
+				<!--DEUXIEME ETAGE-->
+				 <div class="row">
+					<!--COMMENTAIRE-->
+					 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="table100 ver1 m-b-110">
+							<table data-vertable="ver1">
+									<thead>
+										<tr class="row100 head">
+											<th class="column100 column1" data-column="column1">COMMENTAIRE</th>
+										</tr>
+									</thead>
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1">
+											<textarea id="descriptif" name="newdescriptif" style= "max-width:100%;" cols="150"><?php
+											echo $dossierinfo['descriptif'];
+										?></textarea>
+										</td>
+									</tr>
+							</table>
+						</div>
+					 </div>
 					
-					
-				
+				 </div>	
 
 				 <div style="text-align: center ;margin-top: 30px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 					<input type="submit" class="btn btn-primary " name="modif" value="Enregistrer"/>	

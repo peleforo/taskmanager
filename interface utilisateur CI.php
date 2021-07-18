@@ -30,6 +30,8 @@ session_start();
 	if (isset($_SESSION['idCollaborateur'])) {
 		// code...
 
+		
+
 ?>
 
 	<div class="row">

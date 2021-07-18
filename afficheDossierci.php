@@ -171,7 +171,7 @@ session_start();
 				</div>
 				<div class="wrap-table100 col-xs-12 col-sm-12 col-md-6 col-lg-6">
 					<div class="table100 ver1 m-b-110">
-						<form method="POST" action="" >
+						
 							<table data-vertable="ver1">
 								<thead>
 									<tr class="row100 head">
@@ -184,10 +184,10 @@ session_start();
 								</thead>
 								<tbody>
 									<tr class="row100">
-											<td class="column100 column1" data-column="column1">ETUDE</td>
+											<td class="column100 column1" data-column="column1">SURVEY</td>
 											<td class="column100 column2" data-column="column2">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ETUDE" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="SURVEY" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
 													echo $etapeinfo['statutEtape'];
 												?>
@@ -198,79 +198,115 @@ session_start();
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ETUDE" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="SURVEY" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
 												?>
 					
 											</td>
 									</tr>
 															
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1">RECEPTION DE RESSOURCES</td>
+										<td class="column100 column1" data-column="column1">RECEPTION DOSSIER ET BOM</td>
 										<td class="column100 column2" data-column="column2">
 											<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DOSSIER ET BOM" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
 													echo $etapeinfo['statutEtape'];
 												?>
 										</td>
 										<td class="column100 column3" data-column="column3">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ETUDE" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="SURVEY" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
 												?>
 
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DOSSIER ET BOM" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
 												?>
 					
 											</td>
 									</tr>
 									
-							
-											<?php 
-												$reqpot = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
-													$potinfo = $reqstep->fetch();
-
-													if ($dossierinfo['spec'] != "poteau"  /*&& empty($potinfo['nomEtape']=>"IMPLANTATION DE POTEAUX" )*/) {
-											?>
-
 												
-											<?php
-														
-												}
-												else
-												{
-													$reqostep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
-													$oetapeinfo = $reqostep->fetch();
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1">ENLEVEMENT DE MAT</td>
+										<td class="column100 column2" data-column="column2">
+											<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ENLEVEMENT DE MAT" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													
+													echo $etapeinfo['statutEtape'];
 												?>
-												
-												<tr class="row100">
-													<td class="column100 column1" data-column="column1">IMPLANTATION DE POTEAU</td>
-													<td class="column100 column2" data-column="column2"><?php if (!empty($etapeinfo['statutEtape'])) {
-															echo $etapeinfo['statutEtape'];}?></td>
-													<td class="column100 column3" data-column="column3"><?php if (!empty($oetapeinfo['finEtape'])) {
-															echo $oetapeinfo['finEtape'];}	?></td>
-													<td class="column100 column3" data-column="column3"><?php if (!empty($etapeinfo['finEtape'])) {
+										</td>
+										<td class="column100 column3" data-column="column3">
+											<?php  
+													
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DOSSIER ET BOM" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
 															echo $etapeinfo['finEtape'];
-														} ?></td>
-												</tr>
-												<?php
-												}
+														
+													}	
+												?>
+											</td>
+											<td class="column100 column4" data-column="column4">
+												<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ENLEVEMENT DE MAT" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];}
+														
+												?>
+					
+											</td>
+									</tr>
 
-													?>
-
-												
-												
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1">PERFORATION IMMEUBLE ET POSE TUYAU</td>
+										<td class="column100 column2" data-column="column2">
+											<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="PERFORATION IMMEUBLE ET POSE TUYAU" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													echo $etapeinfo['statutEtape'];
+												?>
+										</td>
+										<td class="column100 column3" data-column="column3">
+											<?php  
+													
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ENLEVEMENT DE MAT" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}	
+												?>
+											</td>
+											<td class="column100 column4" data-column="column4">
+												<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="PERFORATION IMMEUBLE ET POSE TUYAU" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
+												?>
+					
+											</td>
+									</tr>			
 									
 									<tr class="row100">
 										<td class="column100 column1" data-column="column1">CABLAGE</td>
@@ -283,20 +319,12 @@ session_start();
 										</td>
 										<td class="column100 column3" data-column="column3">
 											<?php  
-													if ($dossierinfo['spec'] != "poteau"  ) {
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECEPTION DE RESSOURCES" AND doss ='.$getid.'');
-													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
-
-
-													}
-													else
-													{
-														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="IMPLANTATION DE POTEAUX" AND doss ='.$getid.'');
+													
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="PERFORATION IMMEUBLE ET POSE TUYAU" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
 													if (!empty($etapeinfo['finEtape'])) {
 															echo $etapeinfo['finEtape'];
-														}
+														
 													}	
 												?>
 											</td>
@@ -304,7 +332,9 @@ session_start();
 												<?php  
 													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CABLAGE" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];}
+														
 												?>
 					
 											</td>
@@ -323,24 +353,30 @@ session_start();
 												<?php  
 													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CABLAGE" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}
 												?>
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
 													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RACCORDEMENT" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
+														
 												?>
 					
 											</td>
 									</tr>
 															
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1">CONFIGURATION</td>
+										<td class="column100 column1" data-column="column1">VTI</td>
 										<td class="column100 column2" data-column="column2">
 											<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CONFIGURATION" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTI" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
 													echo $etapeinfo['statutEtape'];
 												?>
@@ -349,40 +385,78 @@ session_start();
 											<?php  
 													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RACCORDEMENT" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 												?>	
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CONFIGURATION" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTI" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 												?>
 					
 											</td>
 									</tr>
 															
 									<tr class="row100">
-										<td class="column100 column1" data-column="column1">RECU</td>
+										<td class="column100 column1" data-column="column1">VTOCI</td>
 										<td class="column100 column2" data-column="column2">
 											<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECU" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTOCI" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
 													echo $etapeinfo['statutEtape'];
 												?>
 										</td>
 										<td class="column100 column3" data-column="column3">
 											<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CONFIGURATION" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTI" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 												?>
 											</td>
 											<td class="column100 column4" data-column="column4">
 												<?php  
-													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="RECU" AND doss ='.$getid.'');
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTOCI" AND doss ='.$getid.'');
 													$etapeinfo = $reqstep->fetch(); 
-													echo $etapeinfo['finEtape'];
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
+												?>
+					
+											</td>
+									</tr>
+									<tr class="row100">
+										<td class="column100 column1" data-column="column1">ALIGNEMENT</td>
+										<td class="column100 column2" data-column="column2">
+											<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="ALIGNEMENT" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													echo $etapeinfo['statutEtape'];
+												?>
+										</td>
+										<td class="column100 column3" data-column="column3">
+											<?php  
+														$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="VTOCI" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														
+													}	
+												?>
+											</td>
+											<td class="column100 column4" data-column="column4">
+												<?php  
+													$reqstep = $bdd -> query('SELECT * FROM etape WHERE nomEtape ="CABLAGE" AND doss ='.$getid.'');
+													$etapeinfo = $reqstep->fetch(); 
+													if (!empty($etapeinfo['finEtape'])) {
+															echo $etapeinfo['finEtape'];
+														}
 												?>
 					
 											</td>
@@ -390,7 +464,7 @@ session_start();
 								</tbody>
 							</table>
 							</table>
-						</form>
+						
 					</div>
 				</div>
 			 </div>
@@ -448,56 +522,17 @@ session_start();
 						<table data-vertable="ver1">
 								<thead>
 									<tr class="row100 head">
-										<th class="column100 column1" data-column="column1" colspan="2">MATERIEL UTILISE</th>
-										<td style="text-align: center;">
-											<?php
-												$lienr ='ressource.php?idDossier='. $dossierinfo['idDossier'];
-												echo '<div><a href="'.$lienr.'">
-												<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-													<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-												</svg>
-
-												</a></div>' ;
-											?>
-											
-										</td>
+										<th class="column100 column1" data-column="column1">MATERIEL UTILISE</th>
 									</tr>
 								</thead>
 								<tr class="row100">
-										
-										<td class="column100 column1" data-column="column1">INTITULE</td>
-										<td class="column100 column2" data-column="column2">MODELE</td>
-										<td class="column100 column3" data-column="column3">QUANTITE</td>
-
+									<td class="column100 column1" data-column="column1">IDENTIFIANT DU DOSSIER</td>
+									<td class="column100 column2" data-column="column2">
+										<?php
+				             			  echo $dossierinfo['idDossier'];
+						                 ?>
+									</td>
 								</tr>
-								<?php  
-										$reqstep = $bdd -> query('SELECT * FROM ressource WHERE  dossierConcerne ='.$getid.'');
-										
-										while ($ressourceinfo = $reqstep->fetch()) {
-											/*for ($etapeinfo['ordre']==1; $etapeinfo['ordre'] < ; $etapeinfo['ordre']++) { 
-												// code...
-											}
-										 */
-										
-											
-											
-										  ?>
-										
-											<tr class="row100">
-												<td class="column100 column1" data-column="column1"><?php if (!empty($ressourceinfo['nomRessource'])) {echo $ressourceinfo['nomRessource'];} ?></td>
-												<td class="column100 column2" data-column="column2"><?php if (!empty($ressourceinfo['modeleRessource'])) {echo $ressourceinfo['modeleRessource'];}?>
-													
-												</td>
-												<td class="column100 column3" data-column="column3"><?php if (!empty($ressourceinfo['qte'])) {echo $ressourceinfo['qte'];}?>
-													
-												</td>
-												
-									<?php
-											
-											
-										}
-
-									?>
 						</table>
 					</div>
 				</div>
@@ -531,49 +566,21 @@ session_start();
 								<thead>
 									<tr class="row100 head">
 										<th class="column100 column1" data-column="column1">pieces jointes</th>
-										<td style="text-align: center;">
-											<?php
-												$lienr ='fichie.php?idDossier='. $dossierinfo['idDossier'];
-												echo '<div><a href="'.$lienr.'">
-												<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-													<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-												</svg>
-
-												</a></div>' ;
-											?>
-											
-										</td>
 
 									</tr>
 								</thead>
-								<?php
-											$reqpj = $bdd ->query('SELECT * FROM fichier WHERE dossier =' .$getid);
-        									$reqpj ->execute(array($getid));
-        									while ($pj = $reqpj ->fetch()) {
-        										// code...
-        									
-										?>
 								<tr class="row100">
 									<td class="column100 column1" data-column="column1">
 										<?php
-													if (!empty($pj['nomFichier'])) {
-														echo $pj['nomFichier'];
-													}
-													
+											echo $dossierinfo['descriptif'];
 										?>
 									</td>
 									<td class="column100 column1" data-column="column1">
 										<?php
-													if (!empty($pj['url'])) {
-														echo '<a href="'.$pj['url'].'">telecharger '.$pj['nomFichier'].'</a>';
-													}
-													
+											echo $dossierinfo['descriptif'];
 										?>
 									</td>
 								</tr>
-								<?php 
-							}
-								?>
 						</table>
 					</div>
 				 </div>				
