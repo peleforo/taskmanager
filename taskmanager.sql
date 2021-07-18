@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 09 juil. 2021 à 00:12
+-- Généré le : Dim 18 juil. 2021 à 23:54
 -- Version du serveur :  10.4.11-MariaDB
 -- Version de PHP : 7.4.1
 
@@ -72,7 +72,7 @@ CREATE TABLE `dossier` (
   `commune` varchar(255) NOT NULL,
   `zone` varchar(255) NOT NULL,
   `qteMateriel` int(11) NOT NULL,
-  `spec` enum('standard','parabole','poteau','') DEFAULT 'standard',
+  `spec` enum('standard','parabole','poteau') DEFAULT NULL,
   `projetConcerne` int(11) NOT NULL DEFAULT 1,
   `commis` int(11) NOT NULL DEFAULT 1,
   `equipe` int(11) NOT NULL DEFAULT 1
@@ -83,24 +83,15 @@ CREATE TABLE `dossier` (
 --
 
 INSERT INTO `dossier` (`idDossier`, `debutDossier`, `finDossier`, `enregistrementDossier`, `descriptif`, `statutDossier`, `nomClient`, `numeroClient`, `emailClient`, `typeDeMaison`, `villeDistrict`, `commune`, `zone`, `qteMateriel`, `spec`, `projetConcerne`, `commis`, `equipe`) VALUES
-(9, '0000-00-00', '0000-00-00', '2021-06-25 22:50:04', 'hello\r\n', 'en attente', 'ismo pele', '082669492934', 'rus@gmail.com', 'immeuble', 'DOHa', '', 'A COTE DU PRe', 0, '', 1, 1, 2),
-(8463, '2021-07-04', NULL, '2021-07-02 14:11:40', 'bnjur', 'en attente', 'GEORGES', '+225754964957221', 'georges@gmail.com', 'BASSE', 'ELIMA', 'ELIMA', 'ELIMA', 0, '', 2, 2, 1),
-(8639, NULL, NULL, '2021-07-08 10:14:36', 'hello', 'en cours', 'JULIEN', '0565478321', 'emil@gmail.cm', 'basse', 'abidjan', 'abobo', 'sagbe', 0, '', 3, 1, 1),
-(9695, NULL, NULL, '2021-07-02 14:51:32', 'BONJOUR', 'en attente', 'HILARY', '+225469265935', 'HILA@gmail.com', 'triplex', 'abidjan', 'yop', 'niangon', 0, '', 4, 1, 1),
-(9953, NULL, NULL, '2021-07-08 12:10:00', '', 'en cours', 'UZIA', '2721463854', 'ul@gmail.com', '', 'ez', '', '', 0, '', 1, 1, 1),
-(26739, NULL, NULL, '2021-07-08 10:34:50', 'hello', 'en cours', 'JULL', '0987654321', 'ope@gmail.cm', 'basse', 'abengourou', 'abengourou', 'abengourou', 0, '', 2, 1, 1),
-(56487, NULL, NULL, '2021-07-08 20:16:48', '', 'en cours', 'koukou', '0565478321', '', '', '', '', '', 0, 'standard', 1, 1, 1),
-(58434, '2021-07-03', '0000-00-00', '2021-06-22 15:54:12', 'hello MAN', 'valide', 'rahim', '0123456789', 'ra@gmail.com', 'basse', 'abidjan', 'plateau', 'cité administrative', 0, 'standard', 2, 1, 2),
-(58435, NULL, NULL, '2021-07-08 10:43:47', '', 'en cours', 'UIJZ', '0123456789', '', '', '', '', '', 0, '', 5, 1, 1),
-(65467, '0000-00-00', '0000-00-00', '2021-06-26 11:12:36', 'hello', 'en cours', 'REMI', '2721463854', 'remi@yahou.com', 'triplex', 'abidjan', 'cocody', 'st jean', 0, '', 5, 1, 1),
-(74769, NULL, NULL, '2021-07-08 10:21:10', 'hello', 'en cours', 'UIL', '0123456789', 'izz@gmail.com', 'immeuble', 'abengourou', 'abengourou', 'abengourou', 0, '', 2, 1, 1),
-(99504, NULL, NULL, '2021-07-08 12:08:31', '', 'en cours', 'UZIA', '2721463854', '', '', '', '', '', 0, '', 2, 1, 1),
-(543743, '2021-07-03', '0000-00-00', '2021-06-22 15:55:31', 'HELLO', 'en cours', 'voyons', '0565478321', 'jul@gmail.com', 'DUPLEX', 'YAMOUSSSOUKRO', 'YAMOUSSOUKRO', 'LAC', 0, '', 3, 1, 1),
-(849303, NULL, NULL, '2021-07-08 12:17:05', '', 'en cours', 'RUZE', '680958902', '', '', '', '', '', 0, '', 3, 1, 1),
-(884044, NULL, NULL, '2021-07-08 12:55:25', '', 'en cours', 'UEOZIZ', '38402002', '', '', '', '', '', 0, '', 2, 1, 1),
-(5784749, NULL, NULL, '2021-07-05 12:05:59', 'dossier urgent', 'en cours', 'KOUA', '084562842', 'koua@gmail.com', 'basse', 'ABIDJAN', 'plateau', 'cité administrative', 0, 'standard', 4, 1, 1),
-(7123456, '2021-07-05', NULL, '2021-07-05 09:23:39', 'CLIENT DISPONIBLE', 'en attente', 'DJEDJE MOISE', '0565478321', 'MOISE@FIBRE', 'immeuble', 'ABIDJAN', 'cocody', 'cité administrative', 0, 'standard', 3, 1, 1),
-(8837302, '2021-07-09', NULL, '2021-07-08 13:46:28', 'hello', 'en cours', 'KONE ismo pele', '0123456789', 'peleforo1999@gmail.com', '', 'DOHA', 'DOHA', '', 0, '', 1, 1, 1);
+(0, NULL, NULL, '2021-07-14 09:52:07', '', 'en cours', '', '', '', '', '', '', '', 0, 'poteau', 1, 1, 1),
+(555567, NULL, NULL, '2021-07-14 15:36:46', '', 'en cours', 'tata', '58303948', '', '', '', '', '', 0, NULL, 3, 1, 1),
+(749833, '2021-07-15', '2021-07-16', '2021-07-14 11:29:49', 'terminer', 'valide', 'TOTO', '67828393903', 'toto@gmail.com', '', '', '', '', 0, 'parabole', 3, 1, 1),
+(970830, '2021-07-14', NULL, '2021-07-14 16:19:15', '', 'en cours', 'UIUR', '38402002', '', '', '', '', '', 0, 'poteau', 3, 1, 1),
+(986542, NULL, NULL, '2021-07-14 09:59:50', '', 'en cours', 'LUPINE', '0123456789', '', '', '', '', '', 0, 'parabole', 2, 1, 1),
+(999999, '2021-07-14', NULL, '2021-07-14 18:49:30', '', 'en cours', 'JEAN', '0565478321', '', '', '', '', '', 0, 'poteau', 3, 1, 1),
+(4759473, NULL, NULL, '2021-07-14 10:28:33', '', 'en cours', 'LOLO', '0123456789', '', '', '', '', '', 0, 'poteau', 2, 1, 1),
+(6563883, '2021-07-14', NULL, '2021-07-14 18:43:01', '', 'en cours', 'LOLITA', '0565478321', '', '', '', '', '', 0, 'poteau', 4, 1, 1),
+(123345678, '2021-07-14', '2021-07-15', '2021-07-14 09:52:03', '', 'en cours', 'LUPIN', '0748046883', '', '', '', '', '', 0, 'poteau', 3, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -130,8 +121,10 @@ INSERT INTO `equipe` (`idEquipe`, `nomEquipe`) VALUES
 CREATE TABLE `etape` (
   `idEtape` int(11) NOT NULL,
   `nomEtape` varchar(255) NOT NULL,
-  `statutEtape` enum('en cours','valide') NOT NULL,
-  `finEtape` date NOT NULL,
+  `statutEtape` enum('pas encore commencer','en cours','valide') NOT NULL,
+  `debutEtape` date DEFAULT NULL,
+  `finEtape` date DEFAULT NULL,
+  `ordre` int(11) NOT NULL,
   `doss` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -139,19 +132,51 @@ CREATE TABLE `etape` (
 -- Déchargement des données de la table `etape`
 --
 
-INSERT INTO `etape` (`idEtape`, `nomEtape`, `statutEtape`, `finEtape`, `doss`) VALUES
-(1, 'ETUDE', 'valide', '2021-07-15', 8837302),
-(2, 'RECEPTION DE RESSOURCES', 'en cours', '0000-00-00', 8837302),
-(3, 'CABLAGE', 'en cours', '0000-00-00', 8837302),
-(4, 'RACCORDEMENT', 'valide', '0000-00-00', 8837302),
-(5, 'CONFIGURATION', 'en cours', '0000-00-00', 8837302),
-(6, 'RECU', '', '0000-00-00', 8837302),
-(7, 'ETUDE', 'en cours', '0000-00-00', 56487),
-(8, 'RECEPTION DE RESSOURCES', 'valide', '0000-00-00', 56487),
-(9, 'CABLAGE', 'valide', '0000-00-00', 56487),
-(10, 'RACCORDEMENT', 'valide', '0000-00-00', 56487),
-(11, 'CONFIGURATION', 'en cours', '0000-00-00', 56487),
-(12, 'RECU', 'en cours', '0000-00-00', 56487);
+INSERT INTO `etape` (`idEtape`, `nomEtape`, `statutEtape`, `debutEtape`, `finEtape`, `ordre`, `doss`) VALUES
+(95, 'ETUDE', 'valide', NULL, '2021-07-14', 0, 123345678),
+(96, 'RECEPTION DE RESSOURCES', 'valide', NULL, '2021-07-14', 0, 123345678),
+(97, 'IMPLANTATION DE POTEAUX', 'pas encore commencer', NULL, NULL, 0, 123345678),
+(98, 'CABLAGE', 'valide', NULL, '2021-07-14', 0, 123345678),
+(99, 'RACCORDEMENT', 'valide', NULL, '2021-07-14', 0, 123345678),
+(100, 'CONFIGURATION', 'valide', NULL, '2021-07-14', 0, 123345678),
+(101, 'RECU', 'valide', NULL, '2021-07-14', 0, 123345678),
+(102, 'ETUDE', 'pas encore commencer', NULL, NULL, 0, 986542),
+(103, 'RECEPTION DE RESSOURCES', 'pas encore commencer', NULL, NULL, 0, 986542),
+(106, 'IMPLANTATION DE POTEAUX', 'pas encore commencer', NULL, NULL, 0, 986542),
+(107, 'CABLAGE', 'pas encore commencer', NULL, NULL, 0, 986542),
+(108, 'RACCORDEMENT', 'pas encore commencer', NULL, NULL, 0, 986542),
+(109, 'CONFIGURATION', 'pas encore commencer', NULL, NULL, 0, 986542),
+(110, 'RECU', 'pas encore commencer', NULL, NULL, 0, 986542),
+(111, 'ETUDE', 'pas encore commencer', NULL, NULL, 0, 4759473),
+(112, 'RECEPTION DE RESSOURCES', 'pas encore commencer', NULL, NULL, 0, 4759473),
+(113, 'IMPLANTATION DE POTEAUX', 'pas encore commencer', NULL, NULL, 0, 4759473),
+(114, 'CABLAGE', 'pas encore commencer', NULL, NULL, 0, 4759473),
+(115, 'RACCORDEMENT', 'pas encore commencer', NULL, NULL, 0, 4759473),
+(116, 'CONFIGURATION', 'pas encore commencer', NULL, NULL, 0, 4759473),
+(117, 'RECU', 'pas encore commencer', NULL, NULL, 0, 4759473),
+(118, 'ETUDE', 'valide', '2021-07-15', '2021-07-15', 0, 749833),
+(119, 'RECEPTION DE RESSOURCES', 'valide', NULL, '2021-07-16', 0, 749833),
+(120, 'CABLAGE', 'en cours', NULL, NULL, 0, 749833),
+(121, 'RACCORDEMENT', 'en cours', NULL, NULL, 0, 749833),
+(122, 'CONFIGURATION', 'en cours', NULL, NULL, 0, 749833),
+(123, 'RECU', 'en cours', NULL, NULL, 0, 749833),
+(130, 'ETUDE', 'pas encore commencer', NULL, NULL, 1, 555567),
+(131, 'ETUDE', 'pas encore commencer', NULL, NULL, 1, 970830),
+(132, 'CABLAGE', 'pas encore commencer', NULL, NULL, 2, 970830),
+(133, 'ETUDE', 'valide', NULL, '2021-07-14', 1, 6563883),
+(134, 'RECEPTION DE RESSOURCES', 'en cours', NULL, NULL, 2, 6563883),
+(135, 'IMPLANTATION DE POTEAUX', 'pas encore commencer', NULL, NULL, 3, 6563883),
+(136, 'CABLAGE', 'pas encore commencer', NULL, NULL, 4, 6563883),
+(137, 'RACCORDEMENT', 'pas encore commencer', NULL, NULL, 5, 6563883),
+(138, 'CONFIGURATION', 'pas encore commencer', NULL, NULL, 6, 6563883),
+(139, 'RECU', 'pas encore commencer', NULL, NULL, 7, 6563883),
+(140, 'ETUDE', 'valide', NULL, '2021-07-14', 0, 999999),
+(141, 'RECEPTION DE RESSOURCES', 'valide', NULL, '2021-07-14', 0, 999999),
+(142, 'IMPLANTATION DE POTEAUX', 'pas encore commencer', NULL, NULL, 0, 999999),
+(143, 'CABLAGE', 'valide', NULL, '2021-07-14', 0, 999999),
+(144, 'RACCORDEMENT', 'valide', NULL, '2021-07-14', 0, 999999),
+(145, 'CONFIGURATION', 'valide', NULL, '2021-07-14', 0, 999999),
+(146, 'RECU', 'valide', NULL, '2021-07-14', 0, 999999);
 
 -- --------------------------------------------------------
 
@@ -162,6 +187,28 @@ INSERT INTO `etape` (`idEtape`, `nomEtape`, `statutEtape`, `finEtape`, `doss`) V
 CREATE TABLE `etat` (
   `etat` enum('validé','en cours','en attente','reporté','perdu') NOT NULL DEFAULT 'en cours'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fichier`
+--
+
+CREATE TABLE `fichier` (
+  `idFichier` int(11) NOT NULL,
+  `nomFichier` text NOT NULL,
+  `url` varchar(500) NOT NULL,
+  `dossier` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `fichier`
+--
+
+INSERT INTO `fichier` (`idFichier`, `nomFichier`, `url`, `dossier`) VALUES
+(1, 'BOBO', 'media/2020_02_13_23_36_IMG_2283.JPG', 986542),
+(2, 'RECU', 'media/2020_02_20_07_46_IMG_2551.JPG', 749833),
+(3, 'configuration', 'media/2020_02_13_23_36_IMG_2283.JPG', 749833);
 
 -- --------------------------------------------------------
 
@@ -200,6 +247,16 @@ CREATE TABLE `ressource` (
   `dateObtention` date NOT NULL,
   `dossierConcerne` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `ressource`
+--
+
+INSERT INTO `ressource` (`idRessource`, `nomRessource`, `modeleRessource`, `qte`, `dateObtention`, `dossierConcerne`) VALUES
+(1, 'CABLE FO', '12', 80, '0000-00-00', 749833),
+(2, 'CABLE FO', '24', 100, '0000-00-00', 749833),
+(3, 'CABLE FO', '48', 100, '0000-00-00', 749833),
+(4, 'PARABOLE', 'CANAL', 1, '0000-00-00', 986542);
 
 -- --------------------------------------------------------
 
@@ -261,6 +318,13 @@ ALTER TABLE `etat`
   ADD PRIMARY KEY (`etat`);
 
 --
+-- Index pour la table `fichier`
+--
+ALTER TABLE `fichier`
+  ADD PRIMARY KEY (`idFichier`),
+  ADD KEY `dossier` (`dossier`);
+
+--
 -- Index pour la table `projet`
 --
 ALTER TABLE `projet`
@@ -300,7 +364,13 @@ ALTER TABLE `equipe`
 -- AUTO_INCREMENT pour la table `etape`
 --
 ALTER TABLE `etape`
-  MODIFY `idEtape` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `idEtape` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
+
+--
+-- AUTO_INCREMENT pour la table `fichier`
+--
+ALTER TABLE `fichier`
+  MODIFY `idFichier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `projet`
@@ -312,7 +382,7 @@ ALTER TABLE `projet`
 -- AUTO_INCREMENT pour la table `ressource`
 --
 ALTER TABLE `ressource`
-  MODIFY `idRessource` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRessource` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `service`
@@ -337,6 +407,12 @@ ALTER TABLE `dossier`
 --
 ALTER TABLE `etape`
   ADD CONSTRAINT `etape_ibfk_1` FOREIGN KEY (`doss`) REFERENCES `dossier` (`idDossier`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `fichier`
+--
+ALTER TABLE `fichier`
+  ADD CONSTRAINT `fichier_ibfk_1` FOREIGN KEY (`dossier`) REFERENCES `dossier` (`idDossier`);
 
 --
 -- Contraintes pour la table `ressource`
