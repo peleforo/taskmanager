@@ -76,8 +76,23 @@ session_start();
 				    </p>
 					<?php
 					$lien ='modifDossier.php?idDossier='. $dossierinfo['idDossier'];
-					echo '<div><a type="submit" class="btn btn-primary" href="'.$lien.'">MODIFIER DOSSIER</a></div>' ;
+					$liensupdoss ='sup.php?idDossier='. $dossierinfo['idDossier'];
 					?>
+					<span>
+						<a href="<?php echo $lien; ?>" title="modifier dossier">
+							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+							  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+							  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+							</svg>
+						</a>
+						<a type="submit" href="<?php echo $liensupdoss; ?>" title="supprimer dossier"> 
+							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+							  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+							  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+							</svg>	
+						</a>
+					</span>
+														
 					<br />
 			</div>
 			 <div class="row">
@@ -491,6 +506,22 @@ session_start();
 												<td class="column100 column3" data-column="column3"><?php if (!empty($ressourceinfo['qte'])) {echo $ressourceinfo['qte'];}?>
 													
 												</td>
+												<td class="column100 column3" data-column="column3"><?php if (!empty($ressourceinfo['idRessource'])) { $liensup = 'sup.php?idRessource='.$ressourceinfo['idRessource'];
+												?>
+													<a type="submit" href="<?php echo $liensup; ?>"> 
+														<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+														  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+														  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+														</svg>	
+													</a>
+														
+												<?php 
+												}
+												?>
+
+												</td>
+
+
 												
 									<?php
 											
@@ -505,7 +536,7 @@ session_start();
 			<!--TROISIEME ETAGE-->
 			 <div class="row">
 				<!--COMMENTAIRE-->
-				 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-8 col-lg-8">
+				 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-7 col-lg-7">
 					<div class="table100 ver1 m-b-110">
 						<table data-vertable="ver1">
 								<thead>
@@ -525,7 +556,7 @@ session_start();
 					</div>
 				 </div>
 				<!--PIECE JOINTE-->
-				 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				 <div class="wrap-table100 col-xs-12 col-sm-12 col-md-5 col-lg-5">
 					<div class="table100 ver1 m-b-110">
 						<table data-vertable="ver1">
 								<thead>
@@ -543,6 +574,7 @@ session_start();
 											?>
 											
 										</td>
+
 
 									</tr>
 								</thead>
@@ -569,6 +601,20 @@ session_start();
 													}
 													
 										?>
+									</td>
+									<td class="column100 column4" data-column="column4"><?php if (!empty($pj['idFichier'])) { $liensupfile = 'sup.php?idFichier='.$pj['idFichier']; 
+										?>
+													<a type="submit" href="<?php echo $liensupfile; ?>"> 
+														<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+														  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+														  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+														</svg>	
+													</a>
+														
+												<?php 
+												}
+												?>
+																										
 									</td>
 								</tr>
 								<?php 
